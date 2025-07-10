@@ -5,14 +5,14 @@ export default function Meta() {
     return (
         <Head>
            /* Primary Meta Tags */
-            <title>Vivek Patel Portfolio - Computer Engineering Student</title>
+            <title>WinYan Portfolio - Computer Engineering Student</title>
             <meta charSet="utf-8" />
-            <meta name="title" content="Vivek Patel Portfolio - Computer Engineering Student" />
+            <meta name="title" content="WinYan Portfolio - Computer Engineering Student" />
             <meta name="description"
-                content="Vivek Patel's (vivek9patel) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
-            <meta name="author" content="Vivek Patel (vivek9patel)" />
+                content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
+            <meta name="author" content="WinYan (winyan)" />
             <meta name="keywords"
-                content="vivek9patel, vivek9patel's portfolio, vivek9patel linux, ubuntu portfolio, vivek patel protfolio,vivek patel computer, vivek patel, vivek ubuntu, vivek patel ubuntu portfolio" />
+                content="winyan, winyan's portfolio, winyan linux, ubuntu portfolio, WinYan protfolio,WinYan computer, WinYan, winyan ubuntu, WinYan ubuntu portfolio" />
             <meta name="robots" content="index, follow" />
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <meta name="language" content="English" />
@@ -22,25 +22,25 @@ export default function Meta() {
             /* Search Engine */
             <meta name="image" content="images/logos/fevicon.png" />
             /* Schema.org for Google */
-            <meta itemProp="name" content="Vivek Patel Portfolio - Computer Engineering Student" />
+            <meta itemProp="name" content="WinYan Portfolio - Computer Engineering Student" />
             <meta itemProp="description"
-                content="Vivek Patel's (vivek9patel) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
+                content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta itemProp="image" content="images/logos/fevicon.png" />
             /* Twitter */
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:title" content="Vivek Patel Portfolio - Computer Engineering Student" />
+            <meta name="twitter:title" content="WinYan Portfolio - Computer Engineering Student" />
             <meta name="twitter:description"
-                content="Vivek Patel's (vivek9patel) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
-            <meta name="twitter:site" content="vivek9patel" />
-            <meta name="twitter:creator" content="vivek9patel" />
+                content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
+            <meta name="twitter:site" content="winyan" />
+            <meta name="twitter:creator" content="winyan" />
             <meta name="twitter:image:src" content="images/logos/logo_1024.png" />
             /* Open Graph general (Facebook, Pinterest & Google+) */
-            <meta name="og:title" content="Vivek Patel Portfolio - Computer Engineering Student" />
+            <meta name="og:title" content="WinYan Portfolio - Computer Engineering Student" />
             <meta name="og:description"
-                content="Vivek Patel's (vivek9patel) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
+                content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta name="og:image" content="images/logos/logo_1200.png" />
-            <meta name="og:url" content="http://vivek9patel.github.io/" />
-            <meta name="og:site_name" content="Vivek Patel Personal Portfolio" />
+            <meta name="og:url" content="http://winyan.github.io/" />
+            <meta name="og:site_name" content="WinYan Personal Portfolio" />
             <meta name="og:locale" content="en_IN" />
             <meta name="og:type" content="website" />
 

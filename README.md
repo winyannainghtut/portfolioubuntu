@@ -1,63 +1,159 @@
-# Web simulation of UbuntuOS
+# Win Yan Naing Htut - Portfolio Website
 
-This is a personal portfolio website of theme Ubuntu 20.04, made using Next.js & tailwind CSS.
-If you want to edit this. Clone this project and edit the files in `/src/components`.
+This is the personal portfolio website of **Win Yan Naing Htut**, designed with an Ubuntu 20.04 desktop simulation theme. Built using Next.js and Tailwind CSS, it showcases skills, certifications, and professional information in an interactive desktop environment.
 
-To run this on localhost
-type `npm start` and when u are done coding type `npm run build` to build your app.
+## 🚀 Getting Started
 
-_NOTE: if you have yarn just replace `npm start` and `npm run build` with `yarn start` and `yarn build`._
+### Prerequisites
+- Node.js (version 14 or higher)
+- npm or yarn
 
-<a href="https://www.buymeacoffee.com/vivek9patel" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 140px !important;" ></a>
+### Installation
 
-### To make the contact form work
+1. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd winyan
+   ```
 
-- Create a account in [emailjs](https://www.emailjs.com/) create also new Outlook or Gmail account to be able
-  to send email.
-- Create a new service, select and log in to your newly created outlook or gmail account on EmailJS.
-- Go back to the dashboard and get the Service ID copy it.
-- Create a .env file in your root folder and put
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
+3. Set up environment variables (optional):
+   - Copy `.env.local` to create your environment file
+   - Add your Google Analytics and EmailJS credentials
+
+4. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Building for Production
+```bash
+npm run build
+# or
+yarn build
 ```
 
-NEXT_PUBLIC_USER_ID = 'YOUR_USER_ID'
-NEXT_PUBLIC_TEMPLATE_ID = 'template_fqqqb9g'
-NEXT_PUBLIC_SERVICE_ID = 'YOUR_SERVICE_ID'
+## 📧 Contact Form Configuration
 
+To enable the contact form functionality:
+
+1. Create an account at [EmailJS](https://www.emailjs.com/)
+2. Create a new email service (Gmail or Outlook recommended)
+3. Set up a new service and get your Service ID
+4. Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_USER_ID=your_emailjs_user_id
+NEXT_PUBLIC_TEMPLATE_ID=template_fqqqb9g
+NEXT_PUBLIC_SERVICE_ID=your_emailjs_service_id
+NEXT_PUBLIC_GA_TRACKING_ID=your_google_analytics_id (optional)
 ```
 
-into it. Replace \*your user id and your service ID with your values in your EmailJS service.
+Replace the placeholder values with your actual EmailJS credentials.
 
-## Star History
+## 🛠️ Tech Stack
 
-[![Star History Chart](https://api.star-history.com/svg?repos=vivek9patel/vivek9patel.github.io&type=Date)](https://star-history.com/#vivek9patel/vivek9patel.github.io&Date)
+- **Framework**: Next.js
+- **Styling**: Tailwind CSS
+- **Contact Form**: EmailJS
+- **Analytics**: Google Analytics (optional)
+- **Theme**: Ubuntu 20.04 Desktop Simulation
 
-## This project was made using Create Next App! Here is the scripts that u can run.
+## 📁 Project Structure
 
-### `npm start`
+```
+components/
+├── apps/           # Desktop applications (About, VS Code, etc.)
+├── base/           # Base UI components
+├── context menus/  # Right-click context menus
+├── screen/         # Main screen components
+└── util components/# Utility components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+pages/              # Next.js pages
+public/             # Static assets
+styles/             # Global styles
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## ✨ Features
+
+- Interactive Ubuntu desktop simulation
+- Responsive design
+- Contact form integration
+- Resume download functionality
+- Skills and certifications showcase
+- Professional work experience display
+
+## 📜 Available Scripts
+
+### `npm run dev`
+Runs the development server on [http://localhost:3000](http://localhost:3000).
+The page will reload automatically when you make changes.
 
 ### `npm run build`
+Builds the application for production. The build is optimized and minified.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `npm start`
+Runs the built application in production mode.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run lint`
+Runs ESLint to check for code quality issues.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Deployment
 
-## Contributing
+This Next.js application can be deployed on various platforms:
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributiors who wants to make this website better can make contribution,which will be **greatly appreciated**.
+- **Vercel** (recommended): Deploy directly from GitHub repository
+- **Netlify**: Build command: `npm run build`, Publish directory: `out`
+- **GitHub Pages**: Requires static export configuration
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Added some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+For static export, add the following to `next.config.js`:
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true
+  }
+}
+module.exports = nextConfig
+```
+
+## 🤝 Contributing
+
+This is a personal portfolio project. If you'd like to use this as a template for your own portfolio:
+
+1. Fork the repository
+2. Update personal information in `components/apps/winyan.js`
+3. Replace images in `public/images/`
+4. Update contact information and social links
+5. Modify the color scheme in `tailwind.config.js` if desired
+
+## � Credits
+
+This portfolio website is based on the amazing Ubuntu desktop simulation template originally created by **Vivek Patel**. The original project can be found at:
+- Original Repository: [vivek9patel/vivek9patel.github.io](https://github.com/vivek9patel/vivek9patel.github.io)
+- Original Portfolio: [vivek9patel.github.io](https://vivek9patel.github.io)
+
+Special thanks to Vivek Patel for creating this innovative Ubuntu desktop simulation concept and making it open source for the community to use and adapt.
+
+## �📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 📞 Contact
+
+**Win Yan Naing Htut**
+- LinkedIn: [linkedin.com/in/wynh](https://linkedin.com/in/wynh)
+- GitHub: [github.com/WinYanNaingHtut](https://github.com/WinYanNaingHtut)
+- Email: winyannainghtut98@gmail.com
