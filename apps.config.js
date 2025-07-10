@@ -4,7 +4,6 @@ import { displayTerminal } from './components/apps/terminal';
 import { displaySettings } from './components/apps/settings';
 import { displayChrome } from './components/apps/chrome';
 import { displayTrash } from './components/apps/trash';
-import { displayGedit } from './components/apps/gedit';
 import { displayAboutWinYan } from './components/apps/winyan';
 import { displayTerminalCalc } from './components/apps/calc';
 
@@ -80,15 +79,6 @@ const apps = [
         favourite: false,
         desktop_shortcut: true,
         screen: displayTrash,
-    },
-    {
-        id: "gedit",
-        title: "Contact Me",
-        icon: './themes/Yaru/apps/gedit.png',
-        disabled: false,
-        favourite: false,
-        desktop_shortcut: true,
-        screen: displayGedit,
     },
     {
         id: "github",
