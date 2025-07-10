@@ -2,7 +2,7 @@
   "name": "winyan-portfolio",
   "version": "2.0.0",
   "private": true,
-  "homepage": "https://winyan.github.io/",
+  "homepage": "https://portfolio.winyan.dev/",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",

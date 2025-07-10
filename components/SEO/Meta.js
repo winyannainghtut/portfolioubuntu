@@ -35,13 +35,13 @@ export default function Meta() {
             <meta name="twitter:creator" content="winyan" />
             <meta name="twitter:image:src" content="images/logos/logo_1024.png" />
             /* Open Graph general (Facebook, Pinterest & Google+) */
-            <meta name="og:title" content="WinYan Portfolio - Computer Engineering Student" />
+            <meta name="og:title" content="Win Yan Naing Htut Portfolio - Network Engineer & Cloud Specialist" />
             <meta name="og:description"
-                content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
+                content="Win Yan Naing Htut's Personal Portfolio Website. Network Engineer & Cloud Specialist with expertise in Kubernetes, AWS, and DevOps. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta name="og:image" content="images/logos/logo_1200.png" />
-            <meta name="og:url" content="http://winyan.github.io/" />
-            <meta name="og:site_name" content="WinYan Personal Portfolio" />
-            <meta name="og:locale" content="en_IN" />
+            <meta name="og:url" content="https://portfolio.winyan.dev/" />
+            <meta name="og:site_name" content="Win Yan Naing Htut Portfolio" />
+            <meta name="og:locale" content="en_US" />
             <meta name="og:type" content="website" />
 
             <link rel="icon" href="images/logos/fevicon.svg" />
