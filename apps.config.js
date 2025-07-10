@@ -104,7 +104,7 @@ const apps = [
     {
         id: "linkedin",
         title: "LinkedIn",
-        icon: './themes/Yaru/apps/chrome.png',
+        icon: './themes/Yaru/apps/linkedin.png',
         disabled: false,
         favourite: false,
         desktop_shortcut: true,

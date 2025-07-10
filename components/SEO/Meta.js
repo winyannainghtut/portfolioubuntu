@@ -5,9 +5,9 @@ export default function Meta() {
     return (
         <Head>
            /* Primary Meta Tags */
-            <title>WinYan Portfolio - Computer Engineering Student</title>
+            <title>WinYan Portfolio</title>
             <meta charSet="utf-8" />
-            <meta name="title" content="WinYan Portfolio - Computer Engineering Student" />
+            <meta name="title" content="WinYan Portfolio" />
             <meta name="description"
                 content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta name="author" content="WinYan (winyan)" />
@@ -22,13 +22,13 @@ export default function Meta() {
             /* Search Engine */
             <meta name="image" content="images/logos/fevicon.png" />
             /* Schema.org for Google */
-            <meta itemProp="name" content="WinYan Portfolio - Computer Engineering Student" />
+            <meta itemProp="name" content="WinYan Portfolio" />
             <meta itemProp="description"
                 content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta itemProp="image" content="images/logos/fevicon.png" />
             /* Twitter */
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:title" content="WinYan Portfolio - Computer Engineering Student" />
+            <meta name="twitter:title" content="WinYan Portfolio" />
             <meta name="twitter:description"
                 content="WinYan's (winyan) Personal Portfolio Website. Made with Ubuntu 20.4 (Linux) theme by Next.js and Tailwind CSS." />
             <meta name="twitter:site" content="winyan" />
