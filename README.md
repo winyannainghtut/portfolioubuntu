@@ -43,15 +43,6 @@ npm run build
 yarn build
 ```
 
-## 📧 Contact Form Configuration
-
-To enable the contact form functionality:
-
-1. Create an account at [EmailJS](https://www.emailjs.com/)
-2. Create a new email service (Gmail or Outlook recommended)
-3. Set up a new service and get your Service ID
-4. Create a `.env.local` file in the root directory:
-
 ```env
 NEXT_PUBLIC_USER_ID=your_emailjs_user_id
 NEXT_PUBLIC_TEMPLATE_ID=template_fqqqb9g
@@ -128,16 +119,6 @@ const nextConfig = {
 }
 module.exports = nextConfig
 ```
-
-## 🤝 Contributing
-
-This is a personal portfolio project. If you'd like to use this as a template for your own portfolio:
-
-1. Fork the repository
-2. Update personal information in `components/apps/winyan.js`
-3. Replace images in `public/images/`
-4. Update contact information and social links
-5. Modify the color scheme in `tailwind.config.js` if desired
 
 ## � Credits
 
