@@ -296,6 +296,6 @@ function Skills() {
 
 function Resume() {
     return (
-        <iframe className="h-full w-full" src="./files/WinYanNaingHtut_Resume_2025.pdf" title="win yan naing htut resume" frameBorder="0"></iframe>
+        <iframe className="h-full w-full" src="./files/WinYanNaingHtut.pdf" title="win yan naing htut resume" frameBorder="0"></iframe>
     )
 }
