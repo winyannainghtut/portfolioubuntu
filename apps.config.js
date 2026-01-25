@@ -100,7 +100,8 @@ const apps = [
         favourite: false,
         desktop_shortcut: true,
         isExternalApp: true,
-        url: "https://www.linkedin.com/in/wynh/"
+        url: "https://www.linkedin.com/in/wynh/",
+        screen: () => {},
     },
     {
         id: "blog",
