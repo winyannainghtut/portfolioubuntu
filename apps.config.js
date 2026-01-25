@@ -6,6 +6,7 @@ import { displayChrome } from './components/apps/chrome';
 import { displayTrash } from './components/apps/trash';
 import { displayAboutWinYan } from './components/apps/winyan';
 import { displayTerminalCalc } from './components/apps/calc';
+import { displayBlog } from './components/apps/blog';
 
 const apps = [
     {
@@ -100,6 +101,15 @@ const apps = [
         desktop_shortcut: true,
         isExternalApp: true,
         url: "https://www.linkedin.com/in/wynh/"
+    },
+    {
+        id: "blog",
+        title: "Blog",
+        icon: './themes/Yaru/apps/blog.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayBlog,
     },
 ]
 
