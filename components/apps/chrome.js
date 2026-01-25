@@ -44,6 +44,18 @@ export class Chrome extends Component {
                 url = "https://" + url;
             }
 
+            // Validate URL format
+            try {
+                const parsedUrl = new URL(url);
+                // Only allow http and https protocols
+                if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+                    return;
+                }
+            } catch {
+                // Invalid URL
+                return;
+            }
+
             url = encodeURI(url);
             display_url = url;
             if (url.includes("google.com")) { // 😅
@@ -78,7 +90,16 @@ export class Chrome extends Component {
         return (
             <div className="h-full w-full flex flex-col bg-ub-cool-grey">
                 {this.displayUrlBar()}
-                <iframe src={this.state.url} className="flex-grow" id="chrome-screen" frameBorder="0" title="Ubuntu Chrome Url"></iframe>
+                <iframe 
+                    src={this.state.url} 
+                    className="flex-grow" 
+                    id="chrome-screen" 
+                    frameBorder="0" 
+                    title="Ubuntu Chrome Browser"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    loading="lazy"
+                />
             </div>
         )
     }

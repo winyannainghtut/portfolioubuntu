@@ -4,7 +4,11 @@ export class UbuntuApp extends Component {
 
     openApp = () => {
         if (this.props.isExternalApp && this.props.url) {
-            window.open(this.props.url, "_blank");
+            // Open external URL with security attributes to prevent reverse tabnabbing
+            const newWindow = window.open(this.props.url, '_blank', 'noopener,noreferrer');
+            if (newWindow) {
+                newWindow.opener = null;
+            }
         } else {
             this.props.openApp(this.props.id);
         }

@@ -38,7 +38,8 @@ function DesktopMenu(props) {
             }
         }
         catch (e) {
-            console.log(e)
+            // Fullscreen may not be available in all browsers/contexts
+            console.warn('Fullscreen not available:', e.message);
         }
     }
 

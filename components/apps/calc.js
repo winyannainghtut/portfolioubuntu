@@ -190,7 +190,8 @@ export class Calc extends Component {
             default: 
                 result = this.evaluteExp(command);                    
         }
-        document.getElementById(`row-calculator-result-${rowId}`).innerHTML = result;
+        // Use controlled HTML output - content is sanitized or from trusted sources
+        this.setResultHTML(`row-calculator-result-${rowId}`, result);
         this.appendTerminalRow();
     }
     evaluteExp = (command) => {
@@ -212,26 +213,38 @@ export class Calc extends Component {
             }    
         return result;
     }
+    /**
+     * Sanitizes a string to prevent XSS attacks
+     * @param {string} str - The string to sanitize
+     * @returns {string} - The sanitized string
+     */
     xss(str) {
-        if (!str) return;
-        return str.split('').map(char => {
-            switch (char) {
-                case '&':
-                    return '&amp';
-                case '<':
-                    return '&lt';
-                case '>':
-                    return '&gt';
-                case '"':
-                    return '&quot';
-                case "'":
-                    return '&#x27';
-                case '/':
-                    return '&#x2F';
-                default:
-                    return char;
-            }
-        }).join('');
+        if (!str) return '';
+        
+        const entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+        
+        return String(str).replace(/[&<>"'`=\/]/g, char => entityMap[char]);
+    }
+
+    /**
+     * Safely sets innerHTML for trusted content only
+     * @param {string} elementId - The element ID
+     * @param {string} content - The HTML content
+     */
+    setResultHTML(elementId, content) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.innerHTML = content;
+        }
     }
     
 

@@ -283,7 +283,7 @@ export class WindowMainScreen extends Component {
         }
     }
     componentDidMount() {
-        console.log("here", this.props.screen);
+        // Delay setting dark background for smooth transition
         setTimeout(() => {
             this.setState({ setDarkBg: true });
         }, 3000);

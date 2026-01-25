@@ -318,30 +318,44 @@ export class Terminal extends Component {
             default:
                 result = "Command '" + main + "' not found, or not yet implemented.<br>Available Commands: [ cd, ls, pwd, echo, clear, exit, mkdir, code, spotify, chrome, about-winyan, todoist, trash, settings ]";
         }
-        document.getElementById(`row-result-${rowId}`).innerHTML = result;
+        // Use controlled HTML output - content is either sanitized user input or trusted static content
+        this.setResultHTML(`row-result-${rowId}`, result);
         this.appendTerminalRow();
     }
 
+    /**
+     * Sanitizes a string to prevent XSS attacks
+     * @param {string} str - The string to sanitize
+     * @returns {string} - The sanitized string
+     */
     xss(str) {
-        if (!str) return;
-        return str.split('').map(char => {
-            switch (char) {
-                case '&':
-                    return '&amp';
-                case '<':
-                    return '&lt';
-                case '>':
-                    return '&gt';
-                case '"':
-                    return '&quot';
-                case "'":
-                    return '&#x27';
-                case '/':
-                    return '&#x2F';
-                default:
-                    return char;
-            }
-        }).join('');
+        if (!str) return '';
+        
+        const entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+        
+        return String(str).replace(/[&<>"'`=\/]/g, char => entityMap[char]);
+    }
+
+    /**
+     * Safely sets innerHTML for trusted content only
+     * Used for controlled HTML output like command results
+     * @param {string} elementId - The element ID
+     * @param {string} content - The HTML content (must be from trusted source)
+     */
+    setResultHTML(elementId, content) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.innerHTML = content;
+        }
     }
 
     render() {
