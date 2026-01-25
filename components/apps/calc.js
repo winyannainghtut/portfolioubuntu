@@ -55,13 +55,6 @@ export class Calc extends Component {
         });
     }
 
-    clearEntry = () => {
-        this.setState({
-            display: '0',
-            waitingForOperand: false
-        });
-    }
-
     backspace = () => {
         const { display } = this.state;
         if (display.length === 1 || (display.length === 2 && display.startsWith('-'))) {
@@ -130,12 +123,10 @@ export class Calc extends Component {
         if (result === 'Error') return 'Error';
         if (typeof result !== 'number') return String(result);
         
-        // Handle very large or very small numbers
         if (Math.abs(result) > 1e12 || (Math.abs(result) < 1e-10 && result !== 0)) {
             return result.toExponential(6);
         }
         
-        // Round to avoid floating point issues
         const rounded = Math.round(result * 1e10) / 1e10;
         return String(rounded);
     }
@@ -193,9 +184,9 @@ export class Calc extends Component {
                 onClick={onClick}
                 className={`
                     ${span2 ? 'col-span-2' : ''}
-                    h-14 rounded-lg font-medium text-lg
-                    transition-all duration-150 ease-out
-                    active:scale-95 focus:outline-none focus:ring-2 focus:ring-ub-orange/50
+                    w-12 h-10 rounded font-medium text-sm
+                    transition-all duration-100
+                    active:scale-95 focus:outline-none
                     ${className}
                 `}
             >
@@ -204,145 +195,145 @@ export class Calc extends Component {
         );
 
         return (
-            <div className="h-full w-full bg-[#1e1e1e] flex flex-col select-none">
-                {/* Display */}
-                <div className="flex-shrink-0 p-4 bg-[#2d2d2d] border-b border-black/30">
-                    {/* History */}
-                    <div className="h-6 text-right text-gray-400 text-sm mb-1 overflow-hidden">
-                        {history}
+            <div className="h-full w-full bg-ub-grey flex items-center justify-center">
+                <div className="bg-[#2d2d2d] rounded-lg shadow-lg overflow-hidden" style={{ width: '240px' }}>
+                    {/* Display */}
+                    <div className="p-3 bg-[#1a1a1a]">
+                        <div className="h-4 text-right text-gray-500 text-xs overflow-hidden">
+                            {history}
+                        </div>
+                        <div className="text-right text-white text-2xl font-normal overflow-hidden text-ellipsis mt-1">
+                            {display}
+                        </div>
                     </div>
-                    {/* Main Display */}
-                    <div className="text-right text-white text-4xl font-light overflow-hidden text-ellipsis">
-                        {display}
+
+                    {/* Button Grid */}
+                    <div className="p-2 grid grid-cols-4 gap-1.5">
+                        {/* Row 1 */}
+                        <Button 
+                            onClick={this.clearAll}
+                            className="bg-[#4a4a4a] hover:bg-[#555] text-orange-400"
+                        >
+                            AC
+                        </Button>
+                        <Button 
+                            onClick={this.toggleSign}
+                            className="bg-[#4a4a4a] hover:bg-[#555] text-white"
+                        >
+                            ±
+                        </Button>
+                        <Button 
+                            onClick={this.inputPercent}
+                            className="bg-[#4a4a4a] hover:bg-[#555] text-white"
+                        >
+                            %
+                        </Button>
+                        <Button 
+                            onClick={() => this.performOperation('/')}
+                            className="bg-ub-orange hover:bg-orange-600 text-white"
+                        >
+                            ÷
+                        </Button>
+
+                        {/* Row 2 */}
+                        <Button 
+                            onClick={() => this.inputDigit(7)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            7
+                        </Button>
+                        <Button 
+                            onClick={() => this.inputDigit(8)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            8
+                        </Button>
+                        <Button 
+                            onClick={() => this.inputDigit(9)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            9
+                        </Button>
+                        <Button 
+                            onClick={() => this.performOperation('*')}
+                            className="bg-ub-orange hover:bg-orange-600 text-white"
+                        >
+                            ×
+                        </Button>
+
+                        {/* Row 3 */}
+                        <Button 
+                            onClick={() => this.inputDigit(4)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            4
+                        </Button>
+                        <Button 
+                            onClick={() => this.inputDigit(5)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            5
+                        </Button>
+                        <Button 
+                            onClick={() => this.inputDigit(6)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            6
+                        </Button>
+                        <Button 
+                            onClick={() => this.performOperation('-')}
+                            className="bg-ub-orange hover:bg-orange-600 text-white"
+                        >
+                            −
+                        </Button>
+
+                        {/* Row 4 */}
+                        <Button 
+                            onClick={() => this.inputDigit(1)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            1
+                        </Button>
+                        <Button 
+                            onClick={() => this.inputDigit(2)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            2
+                        </Button>
+                        <Button 
+                            onClick={() => this.inputDigit(3)}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            3
+                        </Button>
+                        <Button 
+                            onClick={() => this.performOperation('+')}
+                            className="bg-ub-orange hover:bg-orange-600 text-white"
+                        >
+                            +
+                        </Button>
+
+                        {/* Row 5 */}
+                        <Button 
+                            onClick={() => this.inputDigit(0)}
+                            span2
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white !w-auto"
+                        >
+                            0
+                        </Button>
+                        <Button 
+                            onClick={this.inputDecimal}
+                            className="bg-[#3a3a3a] hover:bg-[#444] text-white"
+                        >
+                            .
+                        </Button>
+                        <Button 
+                            onClick={() => this.performOperation('=')}
+                            className="bg-ub-orange hover:bg-orange-600 text-white"
+                        >
+                            =
+                        </Button>
                     </div>
-                </div>
-
-                {/* Button Grid */}
-                <div className="flex-grow p-3 grid grid-cols-4 gap-2">
-                    {/* Row 1 */}
-                    <Button 
-                        onClick={this.clearAll}
-                        className="bg-[#3d3d3d] hover:bg-[#4a4a4a] text-[#ff6b6b]"
-                    >
-                        AC
-                    </Button>
-                    <Button 
-                        onClick={this.toggleSign}
-                        className="bg-[#3d3d3d] hover:bg-[#4a4a4a] text-white"
-                    >
-                        +/−
-                    </Button>
-                    <Button 
-                        onClick={this.inputPercent}
-                        className="bg-[#3d3d3d] hover:bg-[#4a4a4a] text-white"
-                    >
-                        %
-                    </Button>
-                    <Button 
-                        onClick={() => this.performOperation('/')}
-                        className="bg-ub-orange hover:bg-orange-600 text-white"
-                    >
-                        ÷
-                    </Button>
-
-                    {/* Row 2 */}
-                    <Button 
-                        onClick={() => this.inputDigit(7)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        7
-                    </Button>
-                    <Button 
-                        onClick={() => this.inputDigit(8)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        8
-                    </Button>
-                    <Button 
-                        onClick={() => this.inputDigit(9)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        9
-                    </Button>
-                    <Button 
-                        onClick={() => this.performOperation('*')}
-                        className="bg-ub-orange hover:bg-orange-600 text-white"
-                    >
-                        ×
-                    </Button>
-
-                    {/* Row 3 */}
-                    <Button 
-                        onClick={() => this.inputDigit(4)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        4
-                    </Button>
-                    <Button 
-                        onClick={() => this.inputDigit(5)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        5
-                    </Button>
-                    <Button 
-                        onClick={() => this.inputDigit(6)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        6
-                    </Button>
-                    <Button 
-                        onClick={() => this.performOperation('-')}
-                        className="bg-ub-orange hover:bg-orange-600 text-white"
-                    >
-                        −
-                    </Button>
-
-                    {/* Row 4 */}
-                    <Button 
-                        onClick={() => this.inputDigit(1)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        1
-                    </Button>
-                    <Button 
-                        onClick={() => this.inputDigit(2)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        2
-                    </Button>
-                    <Button 
-                        onClick={() => this.inputDigit(3)}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        3
-                    </Button>
-                    <Button 
-                        onClick={() => this.performOperation('+')}
-                        className="bg-ub-orange hover:bg-orange-600 text-white"
-                    >
-                        +
-                    </Button>
-
-                    {/* Row 5 */}
-                    <Button 
-                        onClick={() => this.inputDigit(0)}
-                        span2
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        0
-                    </Button>
-                    <Button 
-                        onClick={this.inputDecimal}
-                        className="bg-[#4a4a4a] hover:bg-[#5a5a5a] text-white"
-                    >
-                        .
-                    </Button>
-                    <Button 
-                        onClick={() => this.performOperation('=')}
-                        className="bg-ub-orange hover:bg-orange-600 text-white"
-                    >
-                        =
-                    </Button>
                 </div>
             </div>
         );
