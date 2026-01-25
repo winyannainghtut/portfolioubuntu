@@ -26,6 +26,8 @@ const apps = [
         favourite: true,
         desktop_shortcut: false,
         screen: displayTerminalCalc,
+        windowWidth: 22,
+        windowHeight: 50,
     },
     {
         id: "about-winyan",

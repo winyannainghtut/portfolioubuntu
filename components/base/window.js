@@ -41,10 +41,15 @@ export class Window extends Component {
     }
 
     setDefaultWindowDimenstion = () => {
-        if (window.innerWidth < 640) {
+        // Use custom dimensions from props if provided
+        const customWidth = this.props.windowWidth;
+        const customHeight = this.props.windowHeight;
+        
+        if (customWidth && customHeight) {
+            this.setState({ height: customHeight, width: customWidth }, this.resizeBoundries);
+        } else if (window.innerWidth < 640) {
             this.setState({ height: 60, width: 85 }, this.resizeBoundries);
-        }
-        else {
+        } else {
             this.setState({ height: 85, width: 60 }, this.resizeBoundries);
         }
     }
