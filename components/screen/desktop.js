@@ -71,9 +71,12 @@ export class Desktop extends Component {
     }
 
     setEventListeners = () => {
-        document.getElementById("open-settings").addEventListener("click", () => {
-            this.openApp("settings");
-        });
+        const openSettingsBtn = document.getElementById("open-settings");
+        if (openSettingsBtn) {
+            openSettingsBtn.addEventListener("click", () => {
+                this.openApp("settings");
+            });
+        }
     }
 
     setContextListeners = () => {
