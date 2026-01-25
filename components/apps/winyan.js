@@ -118,7 +118,7 @@ export class AboutWinYan extends Component {
                 
                 {/* Main Content */}
                 <div className="flex flex-col w-3/4 md:w-4/5 justify-start items-center flex-grow bg-ub-grey overflow-y-auto windowMainScreen">
-                    <div className="w-full page-transition">
+                    <div className="w-full h-full">
                         {this.state.screen}
                     </div>
                 </div>
