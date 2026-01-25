@@ -17,6 +17,7 @@ export class AboutWinYan extends Component {
         this.screens = {
             "about": <About />,
             "experience": <Experience />,
+            "certifications": <Certifications />,
             "education": <Education />,
             "skills": <Skills />,
             "contact": <Contact />,
@@ -62,6 +63,10 @@ export class AboutWinYan extends Component {
                 <div id="experience" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "experience" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
                     <img className=" w-3 md:w-4" alt="win yan's experience" src="./themes/Yaru/status/experience.svg" />
                     <span className=" ml-1 md:ml-2 text-gray-50 ">Experience</span>
+                </div>
+                <div id="certifications" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "certifications" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
+                    <img className=" w-3 md:w-4" alt="win yan's certifications" src="./themes/Yaru/status/education.svg" />
+                    <span className=" ml-1 md:ml-2 text-gray-50 ">Certifications</span>
                 </div>
                 <div id="education" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "education" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
                     <img className=" w-3 md:w-4" alt="win yan's education" src="./themes/Yaru/status/education.svg" />
@@ -266,7 +271,7 @@ function Experience() {
         </>
     )
 }
-function Education() {
+function Certifications() {
     return (
         <>
             <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
