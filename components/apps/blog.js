@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga4';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 
 export class Blog extends Component {
@@ -24,8 +21,8 @@ export class Blog extends Component {
 
     fetchBlogPosts = async () => {
         try {
-            // Fetch posts from public/blog/posts folder
-            const response = await fetch('/api/blog/posts');
+            // Try to fetch from generated JSON file (static export)
+            const response = await fetch('/blog/posts.json');
             if (response.ok) {
                 const posts = await response.json();
                 this.setState({ 
@@ -34,7 +31,7 @@ export class Blog extends Component {
                     postsLoaded: true 
                 });
             } else {
-                // Fallback to sample posts if API fails
+                // Fallback to sample posts
                 this.setState({ 
                     posts: this.getSamplePosts(), 
                     loading: false, 

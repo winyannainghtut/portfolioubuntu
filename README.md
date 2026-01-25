@@ -72,7 +72,10 @@ components/
 
 pages/              # Next.js pages
 public/             # Static assets
+│   └── blog/       # Blog posts (Markdown files)
+│       └── posts/   # Blog post markdown files
 styles/             # Global styles
+scripts/            # Build scripts (e.g., blog generation)
 ```
 
 ## ✨ Features
@@ -83,6 +86,7 @@ styles/             # Global styles
 - Resume download functionality
 - Skills and certifications showcase
 - Professional work experience display
+- Blog system with Markdown support for technical posts
 
 ## 📜 Available Scripts
 
@@ -98,6 +102,30 @@ Runs the built application in production mode.
 
 ### `npm run lint`
 Runs ESLint to check for code quality issues.
+
+### Blog Management
+
+#### Adding New Blog Posts
+
+To create a new blog post, add a markdown file to `public/blog/posts/` with the following format:
+
+```markdown
+---
+title: Your Post Title
+date: YYYY-MM-DD
+excerpt: A brief description.
+---
+
+# Your Post Title
+
+Your content goes here. You can use standard markdown formatting.
+```
+
+The blog system automatically:
+- Parses front matter (title, date, excerpt)
+- Generates `posts.json` during build
+- Renders posts in the Blog app with full markdown support
+- Sorts posts by date (newest first)
 
 ## 🚀 Deployment
 
@@ -120,7 +148,7 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-## � Credits
+## Credits
 
 This portfolio website is based on the amazing Ubuntu desktop simulation template originally created by **Vivek Patel**. The original project can be found at:
 - Original Repository: [vivek9patel/vivek9patel.github.io](https://github.com/vivek9patel/vivek9patel.github.io)
@@ -128,7 +156,7 @@ This portfolio website is based on the amazing Ubuntu desktop simulation templat
 
 Special thanks to Vivek Patel for creating this innovative Ubuntu desktop simulation concept and making it open source for the community to use and adapt.
 
-## �📝 License
+## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
