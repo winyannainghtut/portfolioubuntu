@@ -8,7 +8,7 @@ export class AboutWinYan extends Component {
         this.screens = {};
         this.state = {
             screen: () => { },
-            active_screen: "about", // by default 'about' screen is active
+            active_screen: "about",
             navbar: false,
         }
     }
@@ -29,19 +29,13 @@ export class AboutWinYan extends Component {
             lastVisitedScreen = "about";
         }
 
-        // focus last visited screen
         this.changeScreen(document.getElementById(lastVisitedScreen));
     }
 
     changeScreen = (e) => {
         const screen = e.id || e.target.id;
-
-        // store this state
         localStorage.setItem("about-section", screen);
-
-        // google analytics
         ReactGA.send({ hitType: "pageview", page: `/${screen}`, title: "Custom Title" });
-
 
         this.setState({
             screen: this.screens[screen],
@@ -54,36 +48,42 @@ export class AboutWinYan extends Component {
     }
 
     renderNavLinks = () => {
+        const navItems = [
+            { id: "about", label: "About Me", icon: "./themes/Yaru/status/about.svg" },
+            { id: "experience", label: "Experience", icon: "./themes/Yaru/status/experience.svg" },
+            { id: "certifications", label: "Certifications", icon: "./themes/Yaru/status/education.svg" },
+            { id: "education", label: "Education", icon: "./themes/Yaru/status/education.svg" },
+            { id: "skills", label: "Skills", icon: "./themes/Yaru/status/skills.svg" },
+            { id: "contact", label: "Contact", icon: "./themes/Yaru/status/contact.svg" },
+            { id: "resume", label: "Resume", icon: "./themes/Yaru/status/download.svg" },
+        ];
+
         return (
             <>
-                <div id="about" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "about" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="about win yan" src="./themes/Yaru/status/about.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">About Me</span>
-                </div>
-                <div id="experience" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "experience" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="win yan's experience" src="./themes/Yaru/status/experience.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">Experience</span>
-                </div>
-                <div id="certifications" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "certifications" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="win yan's certifications" src="./themes/Yaru/status/education.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">Certifications</span>
-                </div>
-                <div id="education" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "education" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="win yan's education" src="./themes/Yaru/status/education.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">Education</span>
-                </div>
-                <div id="skills" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "skills" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="win yan's skills" src="./themes/Yaru/status/skills.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">Skills</span>
-                </div>
-                <div id="contact" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "contact" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="contact win yan" src="./themes/Yaru/status/contact.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">Contact</span>
-                </div>
-                <div id="resume" tabIndex="0" onFocus={this.changeScreen} className={(this.state.active_screen === "resume" ? " bg-ub-orange bg-opacity-100 hover:bg-opacity-95" : " hover:bg-gray-50 hover:bg-opacity-5 ") + " w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none py-1.5 focus:outline-none duration-100 my-0.5 flex justify-start items-center pl-2 md:pl-2.5"}>
-                    <img className=" w-3 md:w-4" alt="win yan's resume" src="./themes/Yaru/status/download.svg" />
-                    <span className=" ml-1 md:ml-2 text-gray-50 ">Resume</span>
-                </div>
+                {navItems.map((item) => (
+                    <div
+                        key={item.id}
+                        id={item.id}
+                        tabIndex="0"
+                        onFocus={this.changeScreen}
+                        className={`
+                            ${this.state.active_screen === item.id
+                                ? "bg-ub-orange bg-opacity-100 hover:bg-opacity-95"
+                                : "hover:bg-gray-50 hover:bg-opacity-5"
+                            }
+                            w-28 md:w-full md:rounded-none rounded-sm cursor-default outline-none
+                            py-2 focus:outline-none duration-150 my-0.5 flex justify-start items-center
+                            pl-2 md:pl-3 transition-all group
+                        `}
+                    >
+                        <img
+                            className="w-3.5 md:w-4 opacity-80 group-hover:opacity-100 transition-opacity"
+                            alt={item.label}
+                            src={item.icon}
+                        />
+                        <span className="ml-2 md:ml-2.5 text-gray-50 text-sm">{item.label}</span>
+                    </div>
+                ))}
             </>
         );
     }
@@ -91,19 +91,36 @@ export class AboutWinYan extends Component {
     render() {
         return (
             <div className="w-full h-full flex bg-ub-cool-grey text-white select-none relative">
-                <div className="md:flex hidden flex-col w-1/4 md:w-1/5 text-sm overflow-y-auto windowMainScreen border-r border-black">
+                {/* Desktop Navigation */}
+                <div className="md:flex hidden flex-col w-1/4 md:w-1/5 text-sm overflow-y-auto windowMainScreen border-r border-black/50 bg-gradient-to-b from-ub-cool-grey to-ub-grey/50">
+                    <div className="p-3 border-b border-white/5">
+                        <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Portfolio</span>
+                    </div>
                     {this.renderNavLinks()}
                 </div>
-                <div onClick={this.showNavBar} className="md:hidden flex flex-col items-center justify-center absolute bg-ub-cool-grey rounded w-6 h-6 top-1 left-1">
-                    <div className=" w-3.5 border-t border-white"></div>
-                    <div className=" w-3.5 border-t border-white" style={{ marginTop: "2pt", marginBottom: "2pt" }}></div>
-                    <div className=" w-3.5 border-t border-white"></div>
-                    <div className={(this.state.navbar ? " visible animateShow z-30 " : " invisible ") + " md:hidden text-xs absolute bg-ub-cool-grey py-0.5 px-1 rounded-sm top-full mt-1 left-0 shadow border-black border border-opacity-20"}>
+                
+                {/* Mobile Navigation Toggle */}
+                <div 
+                    onClick={this.showNavBar} 
+                    className="md:hidden flex flex-col items-center justify-center absolute bg-ub-cool-grey/90 backdrop-blur-sm rounded-lg w-8 h-8 top-2 left-2 z-20 cursor-pointer hover:bg-ub-orange/20 transition-colors"
+                >
+                    <div className="w-4 border-t border-white"></div>
+                    <div className="w-4 border-t border-white my-1"></div>
+                    <div className="w-4 border-t border-white"></div>
+                    <div className={`
+                        ${this.state.navbar ? "visible animateShow" : "invisible"}
+                        md:hidden text-xs absolute bg-ub-cool-grey/95 backdrop-blur-md py-1 px-1 rounded-lg
+                        top-full mt-2 left-0 shadow-xl border border-white/10 z-30
+                    `}>
                         {this.renderNavLinks()}
                     </div>
                 </div>
+                
+                {/* Main Content */}
                 <div className="flex flex-col w-3/4 md:w-4/5 justify-start items-center flex-grow bg-ub-grey overflow-y-auto windowMainScreen">
-                    {this.state.screen}
+                    <div className="w-full page-transition">
+                        {this.state.screen}
+                    </div>
                 </div>
             </div>
         );
@@ -116,441 +133,552 @@ export const displayAboutWinYan = () => {
     return <AboutWinYan />;
 }
 
-
+// ============================================
+// About Section
+// ============================================
 function About() {
     return (
-        <>
-            <div className="w-20 md:w-28 my-4 bg-white rounded-full">
-                <img className="w-full" src="./images/logos/bitmoji.png" alt="Win Yan Naing Htut Logo" />
-            </div>
-            <div className=" mt-4 md:mt-8 text-lg md:text-2xl text-center px-1">
-                <div>my name is <span className="font-bold">Win Yan Naing Htut</span> ,</div>
-                <div className="font-normal ml-1">I'm a <span className="text-pink-600 font-bold">Cloud Engineer & Kubestronaut!</span></div>
-            </div>
-            <div className=" mt-4 relative md:my-8 pt-px bg-white w-32 md:w-48">
-                <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-0"></div>
-                <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-0"></div>
-            </div>
-            <ul className=" mt-4 leading-tight tracking-tight text-sm md:text-base w-5/6 md:w-3/4 emoji-list">
-                <li className=" list-pc">I'm a <span className=" font-medium">Cloud Engineer & CNCF Kubestronaut</span> with extensive experience in AWS architecture, network engineering, and Kubernetes orchestration. I hold all 5 Kubernetes certifications (CKA, CKAD, CKS, KCNA, KCSA), Terraform Associate, AWS Solutions Architect, and Cisco CCNP Enterprise certifications.</li>
-                <li className=" mt-3 list-building"> Currently working at NCS PTE Ltd (Singapore) managing cloud-based firewalls, implementing IaC with Terraform, and maintaining AWS infrastructure components including Security Groups, WAF, Load Balancers, Lambda, and more.</li>
-                <li className=" mt-3 list-time"> When I am not working on cloud architectures, I like to spend my time learning new technologies, contributing to open source projects, and staying updated with the latest in cloud computing and DevOps practices.</li>
-                <li className=" mt-3 list-star"> I have a passion for bridging traditional networking with cloud-native workflows, Infrastructure as Code, and container orchestration technologies!</li>
-            </ul>
-            <div className="mt-4 flex flex-wrap justify-center">
-                <a href="https://www.linkedin.com/in/wynh/" target="_blank" rel="noreferrer" className="mx-2 my-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm">LinkedIn</a>
-                <a href="https://github.com/winyannainghtut" target="_blank" rel="noreferrer" className="mx-2 my-1 px-4 py-2 bg-gray-800 hover:bg-gray-900 rounded text-white text-sm">GitHub</a>
-                <a href="mailto:winyannainghtut98@gmail.com" className="mx-2 my-1 px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-white text-sm">Email</a>
-            </div>
-        </>
-    )
-}
-function Experience() {
-    return (
-        <>
-            <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
-                Work Experience
-                <div className="absolute pt-px bg-white mt-px top-full w-full">
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
+        <div className="flex flex-col items-center px-4 py-6 md:py-8">
+            {/* Avatar with animated ring */}
+            <div className="avatar-ring mb-4">
+                <div className="w-24 md:w-32 bg-white rounded-full overflow-hidden">
+                    <img className="w-full" src="./images/logos/bitmoji.png" alt="Win Yan Naing Htut" />
                 </div>
             </div>
-            <ul className=" w-11/12 mt-4 px-0 md:px-1">
-                <li className="mb-6">
-                    <div className="text-lg md:text-xl font-bold text-white">
-                        Cloud Engineer
-                    </div>
-                    <div className="text-md text-ubt-gedit-orange mt-1">
-                        NCS PTE Ltd (Contract via Avensys Consulting) • Singapore
-                    </div>
-                    <div className="text-sm text-gray-400 mt-0.5">Jan/2024 – Present</div>
-                    <ul className="mt-2 text-sm text-gray-300 list-disc ml-5 space-y-1">
-                        <li>Managed cloud-based firewalls using FortiOS, FortiAnalyzer, and FortiManager deployed as EC2 NIPS</li>
-                        <li>Administered infrastructure in GCC and GCC+ cloud environments</li>
-                        <li>Implemented IaC using Terraform and GitLab CI/CD pipelines for AWS resource automation</li>
-                        <li>Maintained AWS components including NACLs, Security Groups, WAF, Load Balancers, Route Tables, API Gateway, SNS, Lambda, CloudWatch, System Manager, and S3</li>
-                        <li>Supported troubleshooting sessions and incident response for AWS infrastructure issues</li>
-                        <li>Led migration projects for Red Hat servers supporting critical proxy services (Squid forward proxy and Nginx reverse proxy)</li>
-                        <li>Collaborated with application teams to diagnose and resolve AWS connectivity issues</li>
-                        <li>Ensured compliance with security standards through regular audits and best practices implementation</li>
-                        <li>Enhanced observability by configuring alarms and SNS notifications using CloudWatch and StackOps (Kibana)</li>
-                        <li>Developed SOPs for day-1 deployment of common infrastructure components</li>
-                        <li>Deployed web protection using AWS WAF and Trend Micro Vision One endpoint solution</li>
-                    </ul>
-                </li>
-                <li className="mb-6">
-                    <div className="text-lg md:text-xl font-bold text-white">
-                        Infra Engineer
-                    </div>
-                    <div className="text-md text-ubt-gedit-orange mt-1">
-                        Gain City Electronic PTE • Singapore
-                    </div>
-                    <div className="text-sm text-gray-400 mt-0.5">Feb/2023 – Dec/2023</div>
-                    <ul className="mt-2 text-sm text-gray-300 list-disc ml-5 space-y-1">
-                        <li>Managed enterprise network infrastructure including L2-L3 switches, routers, firewalls, CCTVs, and IP/digital phone systems</li>
-                        <li>Implemented security solutions including Fortinet firewalls (100F, 300D, 400F), VPN, Active Directory, and Darktrace NDR</li>
-                        <li>Operated AWS networking services including VPC, Direct Connect, Elastic Load Balancing, and Auto Scaling</li>
-                        <li>Deployed SD-WAN solution using Fortinet Secure SD-WAN to optimize WAN connectivity</li>
-                        <li>Developed network asset management and monitoring systems including Netbox IPAM/DCIM, Cacti, and Zabbix</li>
-                        <li>Resolved complex WAN/LAN/WiFi network issues while providing technical support for business applications</li>
-                        <li>Managed IT assets and maintained comprehensive technical documentation</li>
-                    </ul>
-                </li>
-                <li className="mb-6">
-                    <div className="text-lg md:text-xl font-bold text-white">
-                        Network Engineer
-                    </div>
-                    <div className="text-md text-ubt-gedit-orange mt-1">
-                        Frontiir Co., Ltd. • Yangon, Myanmar
-                    </div>
-                    <div className="text-sm text-gray-400 mt-0.5">April/2021 – Jan/2023</div>
-                    <ul className="mt-2 text-sm text-gray-300 list-disc ml-5 space-y-1">
-                        <li>Designed IP addressing schemes and configured routing protocols (OSPF, ISIS, MPLS, BGP) on Cisco, Juniper, and Extreme platforms</li>
-                        <li>Enhanced network security by implementing TACACS+ and AAA authentication systems</li>
-                        <li>Deployed enterprise network solutions and managed carrier-grade NAT infrastructure (A10 TH7440-11)</li>
-                        <li>Created technical documentation including MOPs, SOPs, HLD, and LLD for network projects</li>
-                        <li>Monitored network performance using Nagios, Cacti, and Smoke-Ping to address bandwidth issues</li>
-                        <li>Led migration projects for control networks in regional townships</li>
-                        <li>Collaborated with cross-functional teams to implement network improvements</li>
-                    </ul>
-                </li>
-                <li className="mb-6">
-                    <div className="text-lg md:text-xl font-bold text-white">
-                        Internet Core Engineer
-                    </div>
-                    <div className="text-md text-ubt-gedit-orange mt-1">
-                        Mytel Myanmar • Yangon, Myanmar
-                    </div>
-                    <div className="text-sm text-gray-400 mt-0.5">July/2020 – Feb/2021</div>
-                    <ul className="mt-2 text-sm text-gray-300 list-disc ml-5 space-y-1">
-                        <li>Resolved issues in fixed broadband networks to ensure optimal performance</li>
-                        <li>Administered enterprise network equipment including Juniper MX960, Huawei SRT, ZTE OLT C320/C610, and Huawei OLT MA5680T</li>
-                        <li>Managed service requests for BRAS and OLT system deployments</li>
-                        <li>Developed MOPs, SOPs, and network diagrams documentation</li>
-                        <li>Monitored network devices using U2000 and Net Numen tools</li>
-                        <li>Collaborated with field maintenance engineers for OLT integration and customer issue resolution</li>
-                    </ul>
-                </li>
-                <li className="mb-6">
-                    <div className="text-lg md:text-xl font-bold text-white">
-                        Associate Network Engineer
-                    </div>
-                    <div className="text-md text-ubt-gedit-orange mt-1">
-                        Frontiir Co., Ltd. • Yangon, Myanmar
-                    </div>
-                    <div className="text-sm text-gray-400 mt-0.5">May/2018 – June/2020</div>
-                    <ul className="mt-2 text-sm text-gray-300 list-disc ml-5 space-y-1">
-                        <li>Designed IP addressing schemes for distribution and access layer networks</li>
-                        <li>Configured routing protocols (OSPF, ISIS) on Linux-based routing devices</li>
-                        <li>Performed end-to-end troubleshooting of network issues</li>
-                        <li>Analyzed network traffic to identify congestion points and performance bottlenecks</li>
-                        <li>Developed network diagrams and IP allocation documentation</li>
-                        <li>Designed and tested network infrastructure for new township deployments</li>
-                        <li>Collaborated with cross-functional teams (NOC, LAN-ops, Implementation, Customer Service)</li>
-                    </ul>
-                </li>
-                <li className="mb-6">
-                    <div className="text-lg md:text-xl font-bold text-white">
-                        Assistant Network Engineer
-                    </div>
-                    <div className="text-md text-ubt-gedit-orange mt-1">
-                        Frontiir Co., Ltd. • Yangon, Myanmar
-                    </div>
-                    <div className="text-sm text-gray-400 mt-0.5">April/2017 – May/2018</div>
-                    <ul className="mt-2 text-sm text-gray-300 list-disc ml-5 space-y-1">
-                        <li>Configured and installed network hardware including switches, routers, and wireless devices (Ubiquiti, Ruckus, Cambium)</li>
-                        <li>Implemented Point-to-Point wireless network installations</li>
-                        <li>Collaborated with implementation teams to meet project deadlines</li>
-                        <li>Deployed public Wi-Fi solutions for commercial environments</li>
-                        <li>Coordinated with inventory teams for device provisioning</li>
-                        <li>Created network diagrams and device inventories documentation</li>
-                    </ul>
-                </li>
-            </ul>
-        </>
-    )
-}
-function Certifications() {
-    return (
-        <>
-            <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
-                Certifications
-                <div className="absolute pt-px bg-white mt-px top-full w-full">
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
-                </div>
+            
+            {/* Name and Title */}
+            <div className="text-center mb-6">
+                <h1 className="text-2xl md:text-3xl font-bold mb-2">
+                    Win Yan Naing Htut
+                </h1>
+                <p className="text-lg md:text-xl text-gray-300">
+                    <span className="gradient-text font-bold">Cloud Engineer & Kubestronaut</span>
+                </p>
             </div>
-            <ul className=" w-10/12  mt-4 ml-4 px-0 md:px-1">
-                <li className="list-disc">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        CNCF Kubestronaut (Includes CKA, CKAD, CKS, KCNA, KCSA)
-                    </div>
-                    <div className=" text-sm md:text-base">Cloud Native Computing Foundation</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <span className="text-yellow-400 font-semibold">★ Kubestronaut - All 5 Kubernetes certifications achieved!</span>
-                    </div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/45647b96-2c2b-4a83-ad6d-785a518f7447/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Kubestronaut Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        CKAD: Certified Kubernetes Application Developer
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Dec 2024 – Dec 2026</div>
-                    <div className=" text-sm md:text-base">The Linux Foundation</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/75574523-1bd7-4dfa-9cf4-f3680df2cd98/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        CKS: Certified Kubernetes Security Specialist
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">2024 – 2026</div>
-                    <div className=" text-sm md:text-base">The Linux Foundation</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/441015bc-92a7-4bdf-8394-7fd6bbfa74a7/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        KCNA: Kubernetes and Cloud Native Associate
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">2024 – 2026</div>
-                    <div className=" text-sm md:text-base">Cloud Native Computing Foundation</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/20eaa565-273f-4f81-b0dc-761caf55df99/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        KCSA: Kubernetes and Cloud Native Security Associate
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">2024 – 2026</div>
-                    <div className=" text-sm md:text-base">Cloud Native Computing Foundation</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/faeb5e3f-e270-4072-a3cb-31a6852f21db/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        HashiCorp Certified: Terraform Associate (003)
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Oct 2024 – Oct 2026</div>
-                    <div className=" text-sm md:text-base">HashiCorp</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/2f155a8d-f50e-4f05-859a-941168083eb0/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        CKA: Certified Kubernetes Administrator
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Aug 2024 – Aug 2026</div>
-                    <div className=" text-sm md:text-base">The Linux Foundation</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/0e1cfe79-4b8a-46b7-8354-80a7476772d9/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        AWS Certified Solutions Architect – Associate
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Oct 2023 – Oct 2026</div>
-                    <div className=" text-sm md:text-base">Amazon Web Services (AWS)</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/60a9411e-2b4d-4e2e-9289-493873092b3e/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        Cisco CCNP Enterprise (Includes ENARSI & ENCOR)
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Dec 2022 – Dec 2025</div>
-                    <div className=" text-sm md:text-base">Cisco</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/b43a52a9-8f21-4508-9a90-6e8c9f969de2/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        Cisco CCNA (Certified Network Associate)
-                    </div>
-                    <div className=" text-sm md:text-base">Cisco</div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        Cisco Certified Specialist - Enterprise Advanced Infrastructure Implementation
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Dec 2022 – Dec 2025</div>
-                    <div className=" text-sm md:text-base">Cisco</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/656341b3-3ce0-4e4c-b290-5efa304ac352/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        Cisco Certified Specialist - Enterprise Core
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">Jun 2022 – Jun 2025</div>
-                    <div className=" text-sm md:text-base">Cisco</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credly.com/badges/510ebf94-f27d-4559-9d6f-1ae2a6b4276b?source=linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        ICSI CNSS Certified Network Security Specialist
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">May 2020</div>
-                    <div className=" text-sm md:text-base">ICSI (International CyberSecurity Institute), UK</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.credential.net/16727451-0fc8-4405-9a8e-21cbd9ed14f3" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-                <li className="list-disc mt-4">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        Cisco Introduction to Cybersecurity
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">May 2020</div>
-                    <div className=" text-sm md:text-base">Cisco</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        <a href="https://www.youracclaim.com/badges/85e38098-0e9e-4d98-9540-f39e58d078c0/linked_in_profile" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">Verify Credential</a>
-                    </div>
-                </li>
-            </ul>
-        </>
-    )
-}
-function Education() {
-    return (
-        <>
-            <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
-                Education
-                <div className="absolute pt-px bg-white mt-px top-full w-full">
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
-                </div>
-            </div>
-            <ul className=" w-10/12  mt-4 ml-4 px-0 md:px-1">
-                <li className="list-disc">
-                    <div className=" text-lg md:text-xl text-left font-bold leading-tight">
-                        Bachelor of Art in English
-                    </div>
-                    <div className=" text-sm text-gray-400 mt-0.5">2015 – 2019</div>
-                    <div className=" text-sm md:text-base">University of Distance Education, Myanmar</div>
-                    <div className="text-sm text-gray-300 mt-1">
-                        Distance Education Program
-                    </div>
-                </li>
-            </ul>
-        </>
-    )
-}
-function Contact() {
-    return (
-        <>
-            <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
-                Get In Touch
-                <div className="absolute pt-px bg-white mt-px top-full w-full">
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
-                </div>
-            </div>
-            <ul className=" w-10/12  mt-4 ml-4 px-0 md:px-1 space-y-4">
-                <li className="list-disc">
-                    <div className="text-white font-semibold">Email</div>
-                    <a href="mailto:winyannainghtut98@gmail.com" className="text-blue-400 hover:text-blue-300">winyannainghtut98@gmail.com</a>
-                </li>
-                <li className="list-disc">
-                    <div className="text-white font-semibold">LinkedIn</div>
-                    <a href="https://www.linkedin.com/in/wynh/" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">linkedin.com/in/wynh</a>
-                </li>
-                <li className="list-disc">
-                    <div className="text-white font-semibold">GitHub</div>
-                    <a href="https://github.com/winyannainghtut" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">github.com/winyannainghtut</a>
-                </li>
-                <li className="list-disc">
-                    <div className="text-white font-semibold">GitLab</div>
-                    <a href="https://gitlab.com/winyannainghtut" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">gitlab.com/winyannainghtut</a>
-                </li>
-                <li className="list-disc">
-                    <div className="text-white font-semibold">Portfolio</div>
-                    <a href="https://portfolio.winyan.dev" target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300">portfolio.winyan.dev</a>
-                </li>
-            </ul>
-            <div className="mt-8 text-sm text-gray-400 w-10/12">
-                <p>I'm always open to discussing new opportunities, cloud architecture projects, or collaboration on DevOps initiatives. Feel free to reach out!</p>
-            </div>
-        </>
-    )
-}
-function Skills() {
-    return (
-        <>
-            <div className=" font-medium relative text-2xl mt-2 md:mt-4 mb-4">
-                Technical Skills
-                <div className="absolute pt-px bg-white mt-px top-full w-full">
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
-                </div>
-            </div>
-            <ul className=" tracking-tight text-sm md:text-base w-10/12 emoji-list">
-                <li className=" list-arrow text-sm md:text-base mt-4 leading-tight tracking-tight">
-                    I've worked with a wide variety of cloud platforms, networking technologies & infrastructure tools.
-                </li>
-                <li className=" list-arrow text-sm md:text-base mt-4 leading-tight tracking-tight">
-                    <div> My areas of expertise are <strong className="text-ubt-gedit-orange">cloud infrastructure, Kubernetes, network engineering & DevOps!</strong></div>
-                </li>
-                <li className=" list-arrow text-sm md:text-base mt-4 leading-tight tracking-tight">
-                    <div>Here are my most frequently used technologies</div>
-                </li>
-            </ul>
-            <div className="w-full md:w-10/12 flex mt-4">
-                <div className=" text-sm text-center md:text-base w-1/2 font-bold">Cloud & Infrastructure</div>
-                <div className=" text-sm text-center md:text-base w-1/2 font-bold">Networking & DevOps</div>
-            </div>
-            <div className="w-full md:w-10/12 flex justify-center items-start font-bold text-center">
-                <div className="px-2 w-1/2">
-                    <div className="flex flex-wrap justify-center items-start w-full mt-2">
-                        <img className="m-1" src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=flat&logo=amazonaws&logoColor=white" alt="win yan aws" />
-                        <img className="m-1" src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" alt="win yan kubernetes" />
-                        <img className="m-1" src="https://img.shields.io/badge/Docker-2CA5E0?style=flat&logo=docker&logoColor=white" alt="win yan docker" />
-                        <img className="m-1" src="https://img.shields.io/badge/Terraform-7B42BC?style=flat&logo=terraform&logoColor=white" alt="win yan terraform" />
-                        <img className="m-1" src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black" alt="win yan linux" />
-                        <img className="m-1" src="https://img.shields.io/badge/Ansible-EE0000?style=flat&logo=ansible&logoColor=white" alt="win yan ansible" />
-                        <img src="https://img.shields.io/badge/-Git-%23F05032?style=flat&logo=git&logoColor=%23ffffff" alt="win yan git" className="m-1" />
-                        <img src="https://img.shields.io/badge/Helm-0F1689?style=flat&logo=helm&logoColor=white" alt="win yan helm" className="m-1" />
-                        <img className="m-1" src="https://img.shields.io/badge/Fortinet-EE3124?style=flat&logo=fortinet&logoColor=white" alt="win yan fortinet" />
-                        <img className="m-1" src="https://img.shields.io/badge/GitLab-FC6D26?style=flat&logo=gitlab&logoColor=white" alt="win yan gitlab" />
+            
+            {/* Divider */}
+            <div className="w-32 md:w-48 h-px bg-gradient-to-r from-transparent via-ub-orange to-transparent mb-6"></div>
+            
+            {/* Bio Cards */}
+            <div className="w-full max-w-2xl space-y-4 px-2">
+                <div className="glass-card p-4 hover-lift">
+                    <div className="flex items-start gap-3">
+                        <span className="text-2xl">🎓</span>
+                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                            <span className="font-semibold text-white">Cloud Engineer & CNCF Kubestronaut</span> with extensive experience in AWS architecture, network engineering, and Kubernetes orchestration. I hold all 5 Kubernetes certifications (CKA, CKAD, CKS, KCNA, KCSA), Terraform Associate, AWS Solutions Architect, and Cisco CCNP Enterprise certifications.
+                        </p>
                     </div>
                 </div>
-                <div className="px-2 flex flex-wrap items-start w-1/2">
-                    <div className="flex flex-wrap justify-center items-start w-full mt-2">
-                        <img className=" m-1" src="https://img.shields.io/badge/Cisco-1BA0D7?style=flat&logo=cisco&logoColor=white" alt="win yan cisco" />
-                        <img className=" m-1" src="https://img.shields.io/badge/Python-FFD43B?style=flat&logo=python&logoColor=blue" alt="win yan python" />
-                        <img className="m-1" src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white" alt="win yan jenkins" />
-                        <img className="m-1" src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=github-actions&logoColor=white" alt="win yan github actions" />
-                        <img src="https://img.shields.io/badge/Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white" alt="win yan prometheus" className="m-1" />
-                        <img src="https://img.shields.io/badge/Grafana-F46800?style=flat&logo=grafana&logoColor=white" alt="win yan grafana" className="m-1" />
-                        <img className="m-1" src="https://img.shields.io/badge/YAML-CB171E?style=flat&logo=yaml&logoColor=white" alt="win yan yaml" />
-                        <img className="m-1" src="https://img.shields.io/badge/Kibana-005571?style=flat&logo=kibana&logoColor=white" alt="win yan kibana" />
-                        <img className="m-1" src="https://img.shields.io/badge/Nginx-009639?style=flat&logo=nginx&logoColor=white" alt="win yan nginx" />
+                
+                <div className="glass-card p-4 hover-lift">
+                    <div className="flex items-start gap-3">
+                        <span className="text-2xl">💼</span>
+                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                            Currently working at <span className="text-ubt-gedit-orange font-medium">NCS PTE Ltd (Singapore)</span> managing cloud-based firewalls, implementing IaC with Terraform, and maintaining AWS infrastructure components including Security Groups, WAF, Load Balancers, Lambda, and more.
+                        </p>
+                    </div>
+                </div>
+                
+                <div className="glass-card p-4 hover-lift">
+                    <div className="flex items-start gap-3">
+                        <span className="text-2xl">🚀</span>
+                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                            When I'm not working on cloud architectures, I enjoy learning new technologies, contributing to open source projects, and staying updated with the latest in cloud computing and DevOps practices.
+                        </p>
+                    </div>
+                </div>
+                
+                <div className="glass-card p-4 hover-lift">
+                    <div className="flex items-start gap-3">
+                        <span className="text-2xl">🌟</span>
+                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                            I have a passion for bridging traditional networking with cloud-native workflows, Infrastructure as Code, and container orchestration technologies!
+                        </p>
                     </div>
                 </div>
             </div>
-            <ul className=" tracking-tight text-sm md:text-base w-10/12 emoji-list mt-4">
-                <li className=" list-arrow text-sm md:text-base mt-4 leading-tight tracking-tight">
-                    <span> And of course, certified in</span> <img className=" inline ml-1" src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" alt="win yan kubernetes certified" /> <span>and</span> <img className=" inline ml-1" src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=flat&logo=amazonaws&logoColor=white" alt="win yan aws certified" /> <span>!</span>
-                </li>
-            </ul>
-        </>
-    )
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
+                <a href="https://www.linkedin.com/in/wynh/" target="_blank" rel="noopener noreferrer" 
+                   className="btn-primary">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/winyannainghtut" target="_blank" rel="noopener noreferrer" 
+                   className="btn-secondary">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="mailto:winyannainghtut98@gmail.com" 
+                   className="btn-secondary">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    Email
+                </a>
+            </div>
+        </div>
+    );
 }
 
+// ============================================
+// Experience Section
+// ============================================
+function Experience() {
+    const experiences = [
+        {
+            title: "Cloud Engineer",
+            company: "NCS PTE Ltd (Contract via Avensys Consulting)",
+            location: "Singapore",
+            period: "Jan 2024 – Present",
+            current: true,
+            highlights: [
+                "Managed cloud-based firewalls using FortiOS, FortiAnalyzer, and FortiManager deployed as EC2 NIPS",
+                "Implemented IaC using Terraform and GitLab CI/CD pipelines for AWS resource automation",
+                "Maintained AWS components including NACLs, Security Groups, WAF, Load Balancers, Lambda, and more",
+                "Led migration projects for Red Hat servers supporting critical proxy services",
+                "Enhanced observability by configuring CloudWatch alarms and SNS notifications",
+                "Deployed web protection using AWS WAF and Trend Micro Vision One"
+            ]
+        },
+        {
+            title: "Infra Engineer",
+            company: "Gain City Electronic PTE",
+            location: "Singapore",
+            period: "Feb 2023 – Dec 2023",
+            highlights: [
+                "Managed enterprise network infrastructure including L2-L3 switches, routers, and firewalls",
+                "Implemented security solutions including Fortinet firewalls, VPN, and Darktrace NDR",
+                "Operated AWS networking services including VPC, Direct Connect, and Auto Scaling",
+                "Deployed SD-WAN solution using Fortinet Secure SD-WAN"
+            ]
+        },
+        {
+            title: "Network Engineer",
+            company: "Frontiir Co., Ltd.",
+            location: "Yangon, Myanmar",
+            period: "Apr 2021 – Jan 2023",
+            highlights: [
+                "Designed IP addressing schemes and configured OSPF, ISIS, MPLS, BGP protocols",
+                "Enhanced network security with TACACS+ and AAA authentication",
+                "Managed carrier-grade NAT infrastructure (A10 TH7440-11)",
+                "Monitored performance using Nagios, Cacti, and Smoke-Ping"
+            ]
+        },
+        {
+            title: "Internet Core Engineer",
+            company: "Mytel Myanmar",
+            location: "Yangon, Myanmar",
+            period: "Jul 2020 – Feb 2021",
+            highlights: [
+                "Administered Juniper MX960, Huawei SRT, ZTE OLT equipment",
+                "Managed BRAS and OLT system deployments",
+                "Developed MOPs, SOPs, and network diagrams"
+            ]
+        },
+        {
+            title: "Associate Network Engineer",
+            company: "Frontiir Co., Ltd.",
+            location: "Yangon, Myanmar",
+            period: "May 2018 – Jun 2020",
+            highlights: [
+                "Designed IP addressing for distribution and access layer networks",
+                "Configured routing protocols on Linux-based devices",
+                "Performed end-to-end network troubleshooting"
+            ]
+        },
+        {
+            title: "Assistant Network Engineer",
+            company: "Frontiir Co., Ltd.",
+            location: "Yangon, Myanmar",
+            period: "Apr 2017 – May 2018",
+            highlights: [
+                "Configured switches, routers, and wireless devices",
+                "Implemented Point-to-Point wireless network installations",
+                "Deployed public Wi-Fi solutions for commercial environments"
+            ]
+        }
+    ];
+
+    return (
+        <div className="px-4 md:px-8 py-6">
+            <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Work Experience</h2>
+            
+            <div className="max-w-3xl mx-auto space-y-6">
+                {experiences.map((exp, index) => (
+                    <div key={index} className="timeline-item pl-6 pb-6">
+                        <div className="glass-card p-4 md:p-5">
+                            <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+                                <div>
+                                    <h3 className="text-lg md:text-xl font-bold text-white flex items-center gap-2">
+                                        {exp.title}
+                                        {exp.current && (
+                                            <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">
+                                                Current
+                                            </span>
+                                        )}
+                                    </h3>
+                                    <p className="text-ubt-gedit-orange font-medium text-sm md:text-base">
+                                        {exp.company} • {exp.location}
+                                    </p>
+                                </div>
+                                <span className="text-xs md:text-sm text-gray-400 bg-white/5 px-2 py-1 rounded">
+                                    {exp.period}
+                                </span>
+                            </div>
+                            <ul className="space-y-1.5">
+                                {exp.highlights.map((item, i) => (
+                                    <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                                        <span className="text-ub-orange mt-1">•</span>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+// ============================================
+// Certifications Section
+// ============================================
+function Certifications() {
+    const certs = [
+        {
+            title: "CNCF Kubestronaut",
+            subtitle: "Includes CKA, CKAD, CKS, KCNA, KCSA",
+            org: "Cloud Native Computing Foundation",
+            featured: true,
+            badge: "★ All 5 Kubernetes Certifications!",
+            link: "https://www.credly.com/badges/45647b96-2c2b-4a83-ad6d-785a518f7447"
+        },
+        {
+            title: "CKAD: Certified Kubernetes Application Developer",
+            org: "The Linux Foundation",
+            period: "Dec 2024 – Dec 2026",
+            link: "https://www.credly.com/badges/75574523-1bd7-4dfa-9cf4-f3680df2cd98"
+        },
+        {
+            title: "CKS: Certified Kubernetes Security Specialist",
+            org: "The Linux Foundation",
+            period: "2024 – 2026",
+            link: "https://www.credly.com/badges/441015bc-92a7-4bdf-8394-7fd6bbfa74a7"
+        },
+        {
+            title: "HashiCorp Certified: Terraform Associate (003)",
+            org: "HashiCorp",
+            period: "Oct 2024 – Oct 2026",
+            link: "https://www.credly.com/badges/2f155a8d-f50e-4f05-859a-941168083eb0"
+        },
+        {
+            title: "CKA: Certified Kubernetes Administrator",
+            org: "The Linux Foundation",
+            period: "Aug 2024 – Aug 2026",
+            link: "https://www.credly.com/badges/0e1cfe79-4b8a-46b7-8354-80a7476772d9"
+        },
+        {
+            title: "AWS Certified Solutions Architect – Associate",
+            org: "Amazon Web Services (AWS)",
+            period: "Oct 2023 – Oct 2026",
+            link: "https://www.credly.com/badges/60a9411e-2b4d-4e2e-9289-493873092b3e"
+        },
+        {
+            title: "Cisco CCNP Enterprise",
+            subtitle: "Includes ENARSI & ENCOR",
+            org: "Cisco",
+            period: "Dec 2022 – Dec 2025",
+            link: "https://www.credly.com/badges/b43a52a9-8f21-4508-9a90-6e8c9f969de2"
+        },
+        {
+            title: "Cisco CCNA",
+            org: "Cisco"
+        }
+    ];
+
+    return (
+        <div className="px-4 md:px-8 py-6">
+            <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Certifications</h2>
+            
+            <div className="max-w-3xl mx-auto grid gap-4">
+                {certs.map((cert, index) => (
+                    <div key={index} className={`cert-card ${cert.featured ? 'featured' : ''}`}>
+                        <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1">
+                                <h3 className="font-bold text-white text-base md:text-lg">{cert.title}</h3>
+                                {cert.subtitle && (
+                                    <p className="text-sm text-gray-400">{cert.subtitle}</p>
+                                )}
+                                <p className="text-sm text-gray-300 mt-1">{cert.org}</p>
+                                {cert.period && (
+                                    <p className="text-xs text-gray-500 mt-0.5">{cert.period}</p>
+                                )}
+                                {cert.badge && (
+                                    <span className="inline-block mt-2 text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full font-medium">
+                                        {cert.badge}
+                                    </span>
+                                )}
+                            </div>
+                            {cert.link && (
+                                <a 
+                                    href={cert.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="flex-shrink-0 text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
+                                >
+                                    Verify
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+// ============================================
+// Education Section
+// ============================================
+function Education() {
+    return (
+        <div className="px-4 md:px-8 py-6">
+            <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Education</h2>
+            
+            <div className="max-w-2xl mx-auto">
+                <div className="glass-card p-6">
+                    <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-full bg-ub-orange/20 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-6 h-6 text-ub-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 className="text-lg md:text-xl font-bold text-white">
+                                Bachelor of Art in English
+                            </h3>
+                            <p className="text-gray-300">University of Distance Education, Myanmar</p>
+                            <p className="text-sm text-gray-400 mt-1">2015 – 2019</p>
+                            <span className="inline-block mt-2 text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">
+                                Distance Education Program
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ============================================
+// Contact Section
+// ============================================
+function Contact() {
+    const contacts = [
+        {
+            label: "Email",
+            value: "winyannainghtut98@gmail.com",
+            href: "mailto:winyannainghtut98@gmail.com",
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            )
+        },
+        {
+            label: "LinkedIn",
+            value: "linkedin.com/in/wynh",
+            href: "https://www.linkedin.com/in/wynh/",
+            external: true,
+            icon: (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+            )
+        },
+        {
+            label: "GitHub",
+            value: "github.com/winyannainghtut",
+            href: "https://github.com/winyannainghtut",
+            external: true,
+            icon: (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            )
+        },
+        {
+            label: "GitLab",
+            value: "gitlab.com/winyannainghtut",
+            href: "https://gitlab.com/winyannainghtut",
+            external: true,
+            icon: (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="m23.6 9.593-.033-.086L20.3.98a.851.851 0 0 0-.336-.405.879.879 0 0 0-1.002.07.866.866 0 0 0-.285.386l-2.212 6.779H7.535L5.323 1.031a.857.857 0 0 0-.286-.386.878.878 0 0 0-1.002-.07.856.856 0 0 0-.337.406L.433 9.502l-.032.086a6.066 6.066 0 0 0 2.012 7.01l.012.009.031.023 4.994 3.745 2.47 1.871 1.503 1.137a1.009 1.009 0 0 0 1.219 0l1.503-1.137 2.47-1.871 5.026-3.768.014-.011a6.072 6.072 0 0 0 2.011-7.003Z"/>
+                </svg>
+            )
+        },
+        {
+            label: "Portfolio",
+            value: "portfolio.winyan.dev",
+            href: "https://portfolio.winyan.dev",
+            external: true,
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+            )
+        }
+    ];
+
+    return (
+        <div className="px-4 md:px-8 py-6">
+            <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Get In Touch</h2>
+            
+            <div className="max-w-xl mx-auto space-y-3">
+                {contacts.map((contact, index) => (
+                    <a
+                        key={index}
+                        href={contact.href}
+                        target={contact.external ? "_blank" : undefined}
+                        rel={contact.external ? "noopener noreferrer" : undefined}
+                        className="glass-card p-4 flex items-center gap-4 hover-lift group cursor-pointer block"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-ub-orange/20 flex items-center justify-center text-ub-orange group-hover:bg-ub-orange group-hover:text-white transition-colors">
+                            {contact.icon}
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-xs text-gray-400 uppercase tracking-wider">{contact.label}</p>
+                            <p className="text-white group-hover:text-ub-orange transition-colors">{contact.value}</p>
+                        </div>
+                        {contact.external && (
+                            <svg className="w-4 h-4 text-gray-500 group-hover:text-ub-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        )}
+                    </a>
+                ))}
+            </div>
+            
+            <div className="max-w-xl mx-auto mt-8 text-center">
+                <p className="text-sm text-gray-400">
+                    I'm always open to discussing new opportunities, cloud architecture projects, or collaboration on DevOps initiatives. Feel free to reach out!
+                </p>
+            </div>
+        </div>
+    );
+}
+
+// ============================================
+// Skills Section
+// ============================================
+function Skills() {
+    const skillCategories = [
+        {
+            title: "Cloud & Infrastructure",
+            icon: "☁️",
+            skills: [
+                { name: "AWS", logo: "amazonaws", color: "FF9900" },
+                { name: "Kubernetes", logo: "kubernetes", color: "326CE5" },
+                { name: "Docker", logo: "docker", color: "2CA5E0" },
+                { name: "Terraform", logo: "terraform", color: "7B42BC" },
+                { name: "Linux", logo: "linux", color: "FCC624", textColor: "black" },
+                { name: "Ansible", logo: "ansible", color: "EE0000" },
+                { name: "Helm", logo: "helm", color: "0F1689" },
+                { name: "Fortinet", logo: "fortinet", color: "EE3124" }
+            ]
+        },
+        {
+            title: "Networking & DevOps",
+            icon: "🔧",
+            skills: [
+                { name: "Cisco", logo: "cisco", color: "1BA0D7" },
+                { name: "Git", logo: "git", color: "F05032" },
+                { name: "GitLab CI", logo: "gitlab", color: "FC6D26" },
+                { name: "GitHub Actions", logo: "github-actions", color: "2088FF" },
+                { name: "Jenkins", logo: "jenkins", color: "D24939" },
+                { name: "Prometheus", logo: "prometheus", color: "E6522C" },
+                { name: "Grafana", logo: "grafana", color: "F46800" },
+                { name: "Nginx", logo: "nginx", color: "009639" }
+            ]
+        },
+        {
+            title: "Languages & Tools",
+            icon: "💻",
+            skills: [
+                { name: "Python", logo: "python", color: "3776AB" },
+                { name: "Bash", logo: "gnu-bash", color: "4EAA25" },
+                { name: "YAML", logo: "yaml", color: "CB171E" },
+                { name: "Kibana", logo: "kibana", color: "005571" }
+            ]
+        }
+    ];
+
+    return (
+        <div className="px-4 md:px-8 py-6">
+            <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Technical Skills</h2>
+            
+            <div className="max-w-3xl mx-auto space-y-6">
+                {/* Intro */}
+                <div className="text-center mb-8">
+                    <p className="text-gray-300">
+                        My areas of expertise are{" "}
+                        <span className="gradient-text font-semibold">
+                            Cloud Infrastructure, Kubernetes, Network Engineering & DevOps
+                        </span>
+                    </p>
+                </div>
+                
+                {/* Skill Categories */}
+                {skillCategories.map((category, catIndex) => (
+                    <div key={catIndex} className="glass-card p-5">
+                        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                            <span>{category.icon}</span>
+                            {category.title}
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                            {category.skills.map((skill, skillIndex) => (
+                                <img
+                                    key={skillIndex}
+                                    className="hover-lift"
+                                    src={`https://img.shields.io/badge/${skill.name.replace(/ /g, '_')}-${skill.color}?style=for-the-badge&logo=${skill.logo}&logoColor=${skill.textColor || 'white'}`}
+                                    alt={skill.name}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                ))}
+                
+                {/* Certification highlight */}
+                <div className="text-center mt-8 p-4 bg-gradient-to-r from-ub-orange/10 via-ub-orange/20 to-ub-orange/10 rounded-lg border border-ub-orange/30">
+                    <p className="text-gray-300">
+                        Certified in{" "}
+                        <span className="font-semibold text-white">all 5 Kubernetes certifications</span>
+                        {" "}(Kubestronaut) and{" "}
+                        <span className="font-semibold text-white">AWS Solutions Architect</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ============================================
+// Resume Section
+// ============================================
 function Resume() {
     return (
-        <iframe className="h-full w-full" src="./files/WinYanNaingHtut_2026.pdf" title="win yan naing htut resume" frameBorder="0"></iframe>
-    )
+        <iframe 
+            className="h-full w-full" 
+            src="./files/WinYanNaingHtut_2026.pdf" 
+            title="Win Yan Naing Htut Resume" 
+            frameBorder="0"
+        />
+    );
 }
