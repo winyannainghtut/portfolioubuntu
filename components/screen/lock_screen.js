@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Clock from '../util components/clock';
 
 export default function LockScreen(props) {
@@ -14,10 +14,19 @@ export default function LockScreen(props) {
         "wall-8": "./images/wallpapers/wall-8.webp",
     };
 
-    if (props.isLocked) {
-        window.addEventListener('click', props.unLockScreen);
-        window.addEventListener('keypress', props.unLockScreen);
-    };
+    // Use useEffect to safely access window (client-side only)
+    useEffect(() => {
+        if (props.isLocked) {
+            window.addEventListener('click', props.unLockScreen);
+            window.addEventListener('keypress', props.unLockScreen);
+        }
+        
+        // Cleanup event listeners on unmount or when isLocked changes
+        return () => {
+            window.removeEventListener('click', props.unLockScreen);
+            window.removeEventListener('keypress', props.unLockScreen);
+        };
+    }, [props.isLocked, props.unLockScreen]);
 
     return (
         <div 
