@@ -82,13 +82,13 @@ const apps = [
     },
     {
         id: "github",
-        title: "GitHub",
+        title: "GitLab",
         icon: './themes/Yaru/apps/github.png',
         disabled: false,
         favourite: false,
         desktop_shortcut: true,
         isExternalApp: true,
-        url: "https://github.com/winyannainghtut",
+        url: "https://gitlab.com/winyannainghtut",
         screen: () => {},
     },
     {
