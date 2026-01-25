@@ -141,7 +141,6 @@ function About() {
                 <a href="https://www.linkedin.com/in/wynh/" target="_blank" rel="noreferrer" className="mx-2 my-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm">LinkedIn</a>
                 <a href="https://github.com/winyannainghtut" target="_blank" rel="noreferrer" className="mx-2 my-1 px-4 py-2 bg-gray-800 hover:bg-gray-900 rounded text-white text-sm">GitHub</a>
                 <a href="mailto:winyannainghtut98@gmail.com" className="mx-2 my-1 px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-white text-sm">Email</a>
-                <a href="tel:+6594209940" className="mx-2 my-1 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded text-white text-sm">+65 9420 9940</a>
             </div>
         </>
     )
@@ -446,35 +445,6 @@ function Education() {
                     </div>
                 </li>
             </ul>
-            <div className=" font-medium relative text-2xl mt-8 md:mt-10 mb-4">
-                Personal Information
-                <div className="absolute pt-px bg-white mt-px top-full w-full">
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 left-full"></div>
-                    <div className="bg-white absolute rounded-full p-0.5 md:p-1 top-0 transform -translate-y-1/2 right-full"></div>
-                </div>
-            </div>
-            <ul className=" w-10/12  mt-4 ml-4 px-0 md:px-1">
-                <li className="list-disc">
-                    <div className=" text-sm md:text-base">
-                        <strong className="text-white">Age:</strong> 28
-                    </div>
-                </li>
-                <li className="list-disc mt-2">
-                    <div className=" text-sm md:text-base">
-                        <strong className="text-white">Nationality:</strong> Myanmar
-                    </div>
-                </li>
-                <li className="list-disc mt-2">
-                    <div className=" text-sm md:text-base">
-                        <strong className="text-white">Marital Status:</strong> Single
-                    </div>
-                </li>
-                <li className="list-disc mt-2">
-                    <div className=" text-sm md:text-base">
-                        <strong className="text-white">Location:</strong> Singapore
-                    </div>
-                </li>
-            </ul>
         </>
     )
 }
@@ -492,10 +462,6 @@ function Contact() {
                 <li className="list-disc">
                     <div className="text-white font-semibold">Email</div>
                     <a href="mailto:winyannainghtut98@gmail.com" className="text-blue-400 hover:text-blue-300">winyannainghtut98@gmail.com</a>
-                </li>
-                <li className="list-disc">
-                    <div className="text-white font-semibold">Phone</div>
-                    <a href="tel:+6594209940" className="text-blue-400 hover:text-blue-300">+65 9420 9940</a>
                 </li>
                 <li className="list-disc">
                     <div className="text-white font-semibold">LinkedIn</div>
