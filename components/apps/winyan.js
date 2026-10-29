@@ -17,6 +17,7 @@ export class AboutWinYan extends Component {
         this.screens = {
             "about": <About />,
             "experience": <Experience />,
+            "projects": <Projects />,
             "certifications": <Certifications />,
             "education": <Education />,
             "skills": <Skills />,
@@ -51,6 +52,7 @@ export class AboutWinYan extends Component {
         const navItems = [
             { id: "about", label: "About Me", icon: "./themes/Yaru/status/about.svg" },
             { id: "experience", label: "Experience", icon: "./themes/Yaru/status/experience.svg" },
+            { id: "projects", label: "Projects", icon: "./themes/Yaru/status/projects.svg" },
             { id: "certifications", label: "Certifications", icon: "./themes/Yaru/status/education.svg" },
             { id: "education", label: "Education", icon: "./themes/Yaru/status/education.svg" },
             { id: "skills", label: "Skills", icon: "./themes/Yaru/status/skills.svg" },
@@ -152,47 +154,47 @@ function About() {
                     Win Yan Naing Htut
                 </h1>
                 <p className="text-lg md:text-xl text-gray-300">
-                    <span className="gradient-text font-bold">Cloud Engineer & Kubestronaut</span>
+                    <span className="gradient-text font-bold">Cloud & DevOps Engineer | Platform Automation</span>
                 </p>
             </div>
-            
+
             {/* Divider */}
             <div className="w-32 md:w-48 h-px bg-gradient-to-r from-transparent via-ub-orange to-transparent mb-6"></div>
-            
+
             {/* Bio Cards */}
             <div className="w-full max-w-2xl space-y-4 px-2">
                 <div className="glass-card p-4 hover-lift">
                     <div className="flex items-start gap-3">
-                        <span className="text-2xl">🎓</span>
+                        <span className="text-2xl">☁️</span>
                         <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            <span className="font-semibold text-white">Cloud Engineer & CNCF Kubestronaut</span> with extensive experience in AWS architecture, network engineering, and Kubernetes orchestration. I hold all 5 Kubernetes certifications (CKA, CKAD, CKS, KCNA, KCSA), Terraform Associate, AWS Solutions Architect, and Cisco CCNP Enterprise certifications.
+                            <span className="font-semibold text-white">Cloud & DevOps Engineer</span> with 9+ years of IT experience, combining AWS infrastructure engineering in Singapore GCC/GCC+ environments with a strong enterprise networking foundation.
                         </p>
                     </div>
                 </div>
-                
+
                 <div className="glass-card p-4 hover-lift">
                     <div className="flex items-start gap-3">
                         <span className="text-2xl">💼</span>
                         <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            Currently working at <span className="text-ubt-gedit-orange font-medium">NCS PTE Ltd (Singapore)</span> managing cloud-based firewalls, implementing IaC with Terraform, and maintaining AWS infrastructure components including Security Groups, WAF, Load Balancers, Lambda, and more.
+                            Currently a Cloud Engineer at <span className="text-ubt-gedit-orange font-medium">NCS PTE Ltd (Singapore)</span>, delivering Terraform-based infrastructure automation, GitLab CI/CD, IAM/OIDC integration, cloud security and operational monitoring.
                         </p>
                     </div>
                 </div>
-                
+
                 <div className="glass-card p-4 hover-lift">
                     <div className="flex items-start gap-3">
-                        <span className="text-2xl">🚀</span>
+                        <span className="text-2xl">🏅</span>
                         <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            When I'm not working on cloud architectures, I enjoy learning new technologies, contributing to open source projects, and staying updated with the latest in cloud computing and DevOps practices.
+                            <span className="font-semibold text-white">CNCF Kubestronaut</span> (CKA, CKAD, CKS, KCNA, KCSA), AWS Certified DevOps Engineer – Professional, AWS Solutions Architect – Associate, HashiCorp Terraform Associate and Cisco CCNP Enterprise.
                         </p>
                     </div>
                 </div>
-                
+
                 <div className="glass-card p-4 hover-lift">
                     <div className="flex items-start gap-3">
-                        <span className="text-2xl">🌟</span>
+                        <span className="text-2xl">🧪</span>
                         <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            I have a passion for bridging traditional networking with cloud-native workflows, Infrastructure as Code, and container orchestration technologies!
+                            I also build independent platform projects — Kubernetes, HCP Vault/Boundary and policy-as-code with OPA/Rego. Check out the Projects section!
                         </p>
                     </div>
                 </div>
@@ -205,10 +207,10 @@ function About() {
                     <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     LinkedIn
                 </a>
-                <a href="https://github.com/winyannainghtut" target="_blank" rel="noopener noreferrer" 
+                <a href="https://gitlab.com/winyannainghtut" target="_blank" rel="noopener noreferrer"
                    className="btn-secondary">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="m23.6 9.593-.033-.086L20.3.98a.851.851 0 0 0-.336-.405.879.879 0 0 0-1.002.07.866.866 0 0 0-.285.386l-2.212 6.779H7.535L5.323 1.031a.857.857 0 0 0-.286-.386.878.878 0 0 0-1.002-.07.856.856 0 0 0-.337.406L.433 9.502l-.032.086a6.066 6.066 0 0 0 2.012 7.01l.012.009.031.023 4.994 3.745 2.47 1.871 1.503 1.137a1.009 1.009 0 0 0 1.219 0l1.503-1.137 2.47-1.871 5.026-3.768.014-.011a6.072 6.072 0 0 0 2.011-7.003Z"/></svg>
+                    GitLab
                 </a>
                 <a href="mailto:winyannainghtut98@gmail.com" 
                    className="btn-secondary">
@@ -232,24 +234,25 @@ function Experience() {
             period: "Jan 2024 – Present",
             current: true,
             highlights: [
-                "Managed cloud-based firewalls using FortiOS, FortiAnalyzer, and FortiManager deployed as EC2 NIPS",
-                "Implemented IaC using Terraform and GitLab CI/CD pipelines for AWS resource automation",
-                "Maintained AWS components including NACLs, Security Groups, WAF, Load Balancers, Lambda, and more",
-                "Led migration projects for Red Hat servers supporting critical proxy services",
-                "Enhanced observability by configuring CloudWatch alarms and SNS notifications",
-                "Deployed web protection using AWS WAF and Trend Micro Vision One"
+                "Operate AWS infrastructure in Singapore GCC/GCC+ environments, including VPC, load balancers, VPC endpoints, API Gateway, WAF, IAM and CloudWatch",
+                "Develop Terraform modules for CSV-driven Security Group/NACL rules in GCC+, with remote state and Git-based version control",
+                "Engineered AWS ACM and GitLab CI/CD certificate lifecycle workflows for 12 public-facing and intranet applications across UAT and production, including ALB-attached TLS certificates and SHIP-HATS/GovTech CTS automation",
+                "Built EventBridge-triggered GitLab/Ansible certificate rotation for 197 Windows IIS and Linux Nginx servers, using IAM role-authorized ACM exports, PFX conversion, IIS binding updates and resource-group-specific child pipelines",
+                "Provision Terraform-managed GitLab Runners and AWS CLI/Terraform container images for infrastructure CI/CD pipelines",
+                "Configure IAM Identity Center (SSO) and GitLab OIDC trust for secure, automated AWS deployments",
+                "Integrate API Gateway, Lambda and Nginx reverse proxy for partner agency APIs; configure CloudWatch/SNS alerts and StackOps (ELK/Kibana) monitoring",
+                "Manage AWS WAF, Trend Micro Vision One and EC2-hosted Fortinet firewalls with FortiManager/FortiAnalyzer"
             ]
         },
         {
             title: "Infra Engineer",
-            company: "Gain City Electronic PTE",
+            company: "Gain City Electronic PTE Ltd",
             location: "Singapore",
             period: "Feb 2023 – Dec 2023",
             highlights: [
-                "Managed enterprise network infrastructure including L2-L3 switches, routers, and firewalls",
-                "Implemented security solutions including Fortinet firewalls, VPN, and Darktrace NDR",
-                "Operated AWS networking services including VPC, Direct Connect, and Auto Scaling",
-                "Deployed SD-WAN solution using Fortinet Secure SD-WAN"
+                "Maintained hybrid AWS/on-premises connectivity via Direct Connect; diagnosed VPC routing, firewall, load-balancer and application access issues",
+                "Operated L2/L3 enterprise networks, Fortinet firewalls, Secure SD-WAN, Active Directory and Darktrace NDR",
+                "Maintained NetBox/Cacti/Zabbix inventory and monitoring, plus operational documentation"
             ]
         },
         {
@@ -258,10 +261,8 @@ function Experience() {
             location: "Yangon, Myanmar",
             period: "Apr 2021 – Jan 2023",
             highlights: [
-                "Designed IP addressing schemes and configured OSPF, ISIS, MPLS, BGP protocols",
-                "Enhanced network security with TACACS+ and AAA authentication",
-                "Managed carrier-grade NAT infrastructure (A10 TH7440-11)",
-                "Monitored performance using Nagios, Cacti, and Smoke-Ping"
+                "Designed IP addressing and implemented BGP, MPLS, OSPF and IS-IS across Cisco, Juniper and Extreme networks, including carrier-grade NAT infrastructure",
+                "Implemented TACACS+/AAA access controls, led regional network migrations and maintained HLD/LLD, MOP and SOP documentation"
             ]
         },
         {
@@ -270,9 +271,7 @@ function Experience() {
             location: "Yangon, Myanmar",
             period: "Jul 2020 – Feb 2021",
             highlights: [
-                "Administered Juniper MX960, Huawei SRT, ZTE OLT equipment",
-                "Managed BRAS and OLT system deployments",
-                "Developed MOPs, SOPs, and network diagrams"
+                "Troubleshot fixed-broadband core networks and supported BRAS/OLT deployments across Juniper, Huawei and ZTE platforms; maintained monitoring and operational procedures"
             ]
         },
         {
@@ -281,9 +280,7 @@ function Experience() {
             location: "Yangon, Myanmar",
             period: "May 2018 – Jun 2020",
             highlights: [
-                "Designed IP addressing for distribution and access layer networks",
-                "Configured routing protocols on Linux-based devices",
-                "Performed end-to-end network troubleshooting"
+                "Configured distribution/access networks and OSPF/IS-IS on Linux-based routers; resolved network faults and supported new township deployments"
             ]
         },
         {
@@ -292,9 +289,7 @@ function Experience() {
             location: "Yangon, Myanmar",
             period: "Apr 2017 – May 2018",
             highlights: [
-                "Configured switches, routers, and wireless devices",
-                "Implemented Point-to-Point wireless network installations",
-                "Deployed public Wi-Fi solutions for commercial environments"
+                "Installed switches, routers, wireless links and public Wi-Fi systems using Ubiquiti, Ruckus and Cambium devices; maintained network documentation"
             ]
         }
     ];
@@ -342,6 +337,92 @@ function Experience() {
 }
 
 // ============================================
+// Projects Section
+// ============================================
+function Projects() {
+    const repoUrl = (repo) => `https://gitlab.com/winyannainghtut/${repo}`;
+
+    const projects = [
+        {
+            title: "Boundary Worker Autoscaling on Kubernetes",
+            description: "Designed a Datadog-driven Kubernetes HPA/StatefulSet PoC for HCP Boundary workers. Automated worker registration and scale-in deregistration using Vault Kubernetes authentication and pod lifecycle hooks.",
+            repo: "boundary-k8s-autoscaling-poc"
+        },
+        {
+            title: "HCP Terraform VCS & OPA Policy Guardrails",
+            description: "Built GitLab-linked HCP Terraform workspaces with remote-state dependencies and run triggers; authored OPA/Rego rules for EC2 sizing, subnet CIDRs, and Security Group/NACL configuration with test fixtures.",
+            repo: "tf-vcs"
+        },
+        {
+            title: "ECS Fargate, VPC Lattice & Envoy mTLS",
+            description: "Created Terraform for ECS Fargate services connected via VPC Lattice TLS passthrough and Envoy sidecar mTLS, integrating ACM Private CA, AWS Secrets Manager, SSM Parameter Store and private DNS.",
+            repo: "tf-ecs"
+        },
+        {
+            title: "GitLab CI + Ansible: Vault SSH CA Trust",
+            description: "Automated deployment of Vault SSH CA trust and TrustedUserCAKeys to private Linux targets using an in-cluster GitLab Runner and Ansible, including idempotent updates, sshd validation and deployment checks.",
+            repo: "ansible-lab"
+        }
+    ];
+
+    const moreLabs = [
+        { title: "EKS infrastructure with Terraform", repo: "eks-terraform" },
+        { title: "Kong API Gateway on EKS", repo: "eks-kong-apigw" },
+        { title: "HCP Vault Dedicated on AWS", repo: "hcp-aws-vault-dedicated-cluster" }
+    ];
+
+    return (
+        <div className="px-4 md:px-8 py-6">
+            <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Projects</h2>
+
+            <div className="max-w-3xl mx-auto space-y-4">
+                <div className="text-center mb-6">
+                    <p className="text-gray-300">
+                        Selected technical projects from my{" "}
+                        <span className="gradient-text font-semibold">personal labs & PoCs</span>
+                    </p>
+                </div>
+
+                {projects.map((project, index) => (
+                    <div key={index} className="glass-card p-4 md:p-5 hover-lift">
+                        <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                        <p className="text-sm text-gray-300 leading-relaxed mb-3">{project.description}</p>
+                        <a
+                            href={repoUrl(project.repo)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1"
+                        >
+                            Repo: {project.repo}
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    </div>
+                ))}
+
+                <div className="glass-card p-4 md:p-5">
+                    <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">More labs</h3>
+                    <div className="flex flex-wrap gap-2">
+                        {moreLabs.map((lab, index) => (
+                            <a
+                                key={index}
+                                href={repoUrl(lab.repo)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="skill-badge"
+                            >
+                                {lab.title}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ============================================
 // Certifications Section
 // ============================================
 function Certifications() {
@@ -355,44 +436,42 @@ function Certifications() {
             link: "https://www.credly.com/badges/45647b96-2c2b-4a83-ad6d-785a518f7447"
         },
         {
-            title: "CKAD: Certified Kubernetes Application Developer",
-            org: "The Linux Foundation",
-            period: "Dec 2024 – Dec 2026",
-            link: "https://www.credly.com/badges/75574523-1bd7-4dfa-9cf4-f3680df2cd98"
+            title: "AWS Certified DevOps Engineer – Professional",
+            org: "Amazon Web Services (AWS)"
         },
         {
-            title: "CKS: Certified Kubernetes Security Specialist",
-            org: "The Linux Foundation",
-            period: "2024 – 2026",
-            link: "https://www.credly.com/badges/441015bc-92a7-4bdf-8394-7fd6bbfa74a7"
+            title: "AWS Certified Solutions Architect – Associate",
+            org: "Amazon Web Services (AWS)",
+            link: "https://www.credly.com/badges/60a9411e-2b4d-4e2e-9289-493873092b3e"
         },
         {
             title: "HashiCorp Certified: Terraform Associate (003)",
             org: "HashiCorp",
-            period: "Oct 2024 – Oct 2026",
             link: "https://www.credly.com/badges/2f155a8d-f50e-4f05-859a-941168083eb0"
         },
         {
             title: "CKA: Certified Kubernetes Administrator",
             org: "The Linux Foundation",
-            period: "Aug 2024 – Aug 2026",
             link: "https://www.credly.com/badges/0e1cfe79-4b8a-46b7-8354-80a7476772d9"
         },
         {
-            title: "AWS Certified Solutions Architect – Associate",
-            org: "Amazon Web Services (AWS)",
-            period: "Oct 2023 – Oct 2026",
-            link: "https://www.credly.com/badges/60a9411e-2b4d-4e2e-9289-493873092b3e"
+            title: "CKAD: Certified Kubernetes Application Developer",
+            org: "The Linux Foundation",
+            link: "https://www.credly.com/badges/75574523-1bd7-4dfa-9cf4-f3680df2cd98"
+        },
+        {
+            title: "CKS: Certified Kubernetes Security Specialist",
+            org: "The Linux Foundation",
+            link: "https://www.credly.com/badges/441015bc-92a7-4bdf-8394-7fd6bbfa74a7"
         },
         {
             title: "Cisco CCNP Enterprise",
-            subtitle: "Includes ENARSI & ENCOR",
+            subtitle: "Includes ENCOR & ENARSI",
             org: "Cisco",
-            period: "Dec 2022 – Dec 2025",
             link: "https://www.credly.com/badges/b43a52a9-8f21-4508-9a90-6e8c9f969de2"
         },
         {
-            title: "Cisco CCNA",
+            title: "Cisco Certified Network Associate (CCNA)",
             org: "Cisco"
         }
     ];
@@ -445,32 +524,50 @@ function Certifications() {
 // Education Section
 // ============================================
 function Education() {
+    const degrees = [
+        {
+            title: "Master of Science (MSc) in Cyber Security",
+            school: "University of West London, UK · Aventis School of Management, Singapore",
+            period: "Mar 2025 – Jul 2026",
+            tag: "Part-time"
+        },
+        {
+            title: "Bachelor of Arts (BA) in English",
+            school: "Yangon University of Distance Education, Myanmar",
+            period: "2014 – 2018"
+        }
+    ];
+
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Education</h2>
-            
-            <div className="max-w-2xl mx-auto">
-                <div className="glass-card p-6">
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-full bg-ub-orange/20 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-6 h-6 text-ub-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 className="text-lg md:text-xl font-bold text-white">
-                                Bachelor of Art in English
-                            </h3>
-                            <p className="text-gray-300">University of Distance Education, Myanmar</p>
-                            <p className="text-sm text-gray-400 mt-1">2015 – 2019</p>
-                            <span className="inline-block mt-2 text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">
-                                Distance Education Program
-                            </span>
+
+            <div className="max-w-2xl mx-auto space-y-4">
+                {degrees.map((degree, index) => (
+                    <div key={index} className="glass-card p-6">
+                        <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-full bg-ub-orange/20 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-6 h-6 text-ub-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 className="text-lg md:text-xl font-bold text-white">
+                                    {degree.title}
+                                </h3>
+                                <p className="text-gray-300">{degree.school}</p>
+                                <p className="text-sm text-gray-400 mt-1">{degree.period}</p>
+                                {degree.tag && (
+                                    <span className="inline-block mt-2 text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">
+                                        {degree.tag}
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
         </div>
     );
@@ -581,60 +678,52 @@ function Contact() {
 function Skills() {
     const skillCategories = [
         {
-            title: "Cloud & Infrastructure",
+            title: "AWS & Cloud",
             icon: "☁️",
-            skills: [
-                { name: "AWS", logo: "amazonaws", color: "FF9900" },
-                { name: "Kubernetes", logo: "kubernetes", color: "326CE5" },
-                { name: "Docker", logo: "docker", color: "2CA5E0" },
-                { name: "Terraform", logo: "terraform", color: "7B42BC" },
-                { name: "Linux", logo: "linux", color: "FCC624", textColor: "black" },
-                { name: "Ansible", logo: "ansible", color: "EE0000" },
-                { name: "Helm", logo: "helm", color: "0F1689" },
-                { name: "Fortinet", logo: "fortinet", color: "EE3124" }
-            ]
+            skills: ["GCC/GCC+", "EC2", "VPC", "ALB/NLB", "API Gateway", "VPC endpoints", "S3", "WAF", "CloudWatch", "ACM", "EventBridge"]
         },
         {
-            title: "Networking & DevOps",
-            icon: "🔧",
-            skills: [
-                { name: "Cisco", logo: "cisco", color: "1BA0D7" },
-                { name: "Git", logo: "git", color: "F05032" },
-                { name: "GitLab CI", logo: "gitlab", color: "FC6D26" },
-                { name: "GitHub Actions", logo: "github-actions", color: "2088FF" },
-                { name: "Jenkins", logo: "jenkins", color: "D24939" },
-                { name: "Prometheus", logo: "prometheus", color: "E6522C" },
-                { name: "Grafana", logo: "grafana", color: "F46800" },
-                { name: "Nginx", logo: "nginx", color: "009639" }
-            ]
+            title: "IaC & CI/CD",
+            icon: "🏗️",
+            skills: ["Terraform", "Reusable modules", "Remote state", "GitLab CI/CD", "SHIP-HATS", "GitLab Runners", "OIDC", "Ansible"]
         },
         {
-            title: "Languages & Tools",
-            icon: "💻",
-            skills: [
-                { name: "Python", logo: "python", color: "3776AB" },
-                { name: "Bash", logo: "gnu-bash", color: "4EAA25" },
-                { name: "YAML", logo: "yaml", color: "CB171E" },
-                { name: "Kibana", logo: "kibana", color: "005571" }
-            ]
+            title: "Platform (labs)",
+            icon: "☸️",
+            skills: ["Kubernetes", "EKS", "ECS/Fargate", "Docker", "Helm", "HPA", "Kong Gateway API", "VPC Lattice", "Envoy"]
+        },
+        {
+            title: "Security & Governance",
+            icon: "🔐",
+            skills: ["IAM Identity Center (SSO)", "Security Groups/NACLs", "Fortinet", "Vault/Boundary (labs)", "PKI", "OPA/Rego (labs)"]
+        },
+        {
+            title: "Observability & Ops",
+            icon: "📈",
+            skills: ["CloudWatch", "SNS", "StackOps (ELK/Kibana)", "Datadog (labs)", "Zabbix", "NetBox", "Bash", "PowerShell"]
+        },
+        {
+            title: "Network Engineering",
+            icon: "🌐",
+            skills: ["Cisco", "Juniper", "BGP", "MPLS", "OSPF", "IS-IS", "Routing", "SD-WAN", "FortiManager", "FortiAnalyzer"]
         }
     ];
 
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Technical Skills</h2>
-            
+
             <div className="max-w-3xl mx-auto space-y-6">
                 {/* Intro */}
                 <div className="text-center mb-8">
                     <p className="text-gray-300">
                         My areas of expertise are{" "}
                         <span className="gradient-text font-semibold">
-                            Cloud Infrastructure, Kubernetes, Network Engineering & DevOps
+                            AWS Infrastructure, IaC & CI/CD, Platform Engineering & Network Engineering
                         </span>
                     </p>
                 </div>
-                
+
                 {/* Skill Categories */}
                 {skillCategories.map((category, catIndex) => (
                     <div key={catIndex} className="glass-card p-5">
@@ -644,24 +733,20 @@ function Skills() {
                         </h3>
                         <div className="flex flex-wrap gap-2">
                             {category.skills.map((skill, skillIndex) => (
-                                <img
-                                    key={skillIndex}
-                                    className="hover-lift"
-                                    src={`https://img.shields.io/badge/${skill.name.replace(/ /g, '_')}-${skill.color}?style=for-the-badge&logo=${skill.logo}&logoColor=${skill.textColor || 'white'}`}
-                                    alt={skill.name}
-                                />
+                                <span key={skillIndex} className="skill-badge">{skill}</span>
                             ))}
                         </div>
                     </div>
                 ))}
-                
+
                 {/* Certification highlight */}
                 <div className="text-center mt-8 p-4 bg-gradient-to-r from-ub-orange/10 via-ub-orange/20 to-ub-orange/10 rounded-lg border border-ub-orange/30">
                     <p className="text-gray-300">
-                        Certified in{" "}
-                        <span className="font-semibold text-white">all 5 Kubernetes certifications</span>
-                        {" "}(Kubestronaut) and{" "}
-                        <span className="font-semibold text-white">AWS Solutions Architect</span>
+                        <span className="font-semibold text-white">CNCF Kubestronaut</span>
+                        {" "}(all 5 Kubernetes certifications),{" "}
+                        <span className="font-semibold text-white">AWS DevOps Engineer – Professional</span>
+                        {" "}and{" "}
+                        <span className="font-semibold text-white">AWS Solutions Architect – Associate</span>
                     </p>
                 </div>
             </div>

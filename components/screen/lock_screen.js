@@ -69,7 +69,7 @@ export default function LockScreen(props) {
                 {/* Name */}
                 <div className="mb-8 text-center">
                     <h2 className="text-xl md:text-2xl font-medium text-white mb-1">Win Yan Naing Htut</h2>
-                    <p className="text-sm text-white/60">Cloud Engineer</p>
+                    <p className="text-sm text-white/60">Cloud & DevOps Engineer</p>
                 </div>
                 
                 {/* Time */}

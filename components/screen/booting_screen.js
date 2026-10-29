@@ -69,7 +69,7 @@ function BootingScreen(props) {
                         Win Yan Naing Htut
                     </h1>
                     <p className="text-gray-400 text-sm md:text-base">
-                        Cloud Engineer & Kubestronaut
+                        Cloud & DevOps Engineer | Platform Automation
                     </p>
                 </div>
                 
