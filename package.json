@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://portfolio.winyan.dev/",
   "scripts": {
+    "predev": "node scripts/generate-blog.js",
     "dev": "next dev",
     "prebuild": "node scripts/generate-blog.js",
     "build": "next build && next export",
@@ -14,14 +15,11 @@
     "node": ">=18.x"
   },
   "dependencies": {
-    "@emailjs/browser": "^3.10.0",
+    "@tailwindcss/typography": "^0.5.20",
     "autoprefixer": "^10.4.13",
-    "expr-eval": "^2.0.2",
-    "gray-matter": "^4.0.3",
     "jquery": "^3.6.3",
     "next": "^13.1.2",
     "postcss": "^8.4.21",
-    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",

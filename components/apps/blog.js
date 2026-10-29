@@ -20,55 +20,24 @@ export class Blog extends Component {
 
     fetchBlogPosts = async () => {
         try {
-            const response = await fetch('/blog/posts.json');
-            if (response.ok) {
-                const posts = await response.json();
-                this.setState({ 
-                    posts: posts, 
-                    loading: false, 
-                    postsLoaded: true 
-                });
-            } else {
-                this.setState({ 
-                    posts: this.getSamplePosts(), 
-                    loading: false, 
-                    postsLoaded: true 
-                });
-            }
+            // Relative path so it also resolves when served from a GitHub Pages subpath
+            const response = await fetch('./blog/posts.json');
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const posts = await response.json();
+            this.setState({
+                posts: posts,
+                loading: false,
+                postsLoaded: true
+            });
         } catch (error) {
+            // Fall through to the "No Blog Posts Yet" screen
             console.warn('Error fetching blog posts:', error);
-            this.setState({ 
-                posts: this.getSamplePosts(), 
-                loading: false, 
-                postsLoaded: true 
+            this.setState({
+                posts: [],
+                loading: false,
+                postsLoaded: true
             });
         }
-    }
-
-    getSamplePosts = () => {
-        return [
-            {
-                slug: 'getting-started-with-kubernetes',
-                title: 'Getting Started with Kubernetes',
-                date: '2025-01-15',
-                excerpt: 'A comprehensive guide to deploying your first application on Kubernetes.',
-                content: '# Getting Started with Kubernetes\n\nKubernetes is an open-source container orchestration platform...'
-            },
-            {
-                slug: 'aws-best-practices',
-                title: 'AWS Security Best Practices',
-                date: '2025-01-10',
-                excerpt: 'Learn about the most important security practices when working with AWS.',
-                content: '# AWS Security Best Practices\n\nSecurity is paramount when working with cloud infrastructure...'
-            },
-            {
-                slug: 'terraform-infrastructure',
-                title: 'Building Infrastructure with Terraform',
-                date: '2025-01-05',
-                excerpt: 'How to use Terraform for Infrastructure as Code to manage your cloud resources.',
-                content: '# Building Infrastructure with Terraform\n\nTerraform is a powerful Infrastructure as Code tool...'
-            }
-        ];
     }
 
     selectPost = (post) => {
@@ -207,6 +176,7 @@ export class Blog extends Component {
                         prose-a:text-ub-orange prose-a:no-underline hover:prose-a:underline
                         prose-strong:text-white
                         prose-code:text-ub-orange prose-code:bg-white/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                        prose-code:before:content-none prose-code:after:content-none
                         prose-pre:bg-ub-cool-grey prose-pre:border prose-pre:border-white/10
                         prose-ul:text-gray-300 prose-ol:text-gray-300
                         prose-li:marker:text-ub-orange

@@ -70,6 +70,10 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: npm run build
+        env:
+          # Google Analytics stays off unless this repository variable is set
+          # (Settings → Secrets and variables → Actions → Variables)
+          NEXT_PUBLIC_GA_TRACKING_ID: ${{ vars.NEXT_PUBLIC_GA_TRACKING_ID }}
       - name: List build output
         run: ls -la
       - name: Check for out directory

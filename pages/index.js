@@ -2,7 +2,8 @@ import Ubuntu from "../components/ubuntu";
 import ReactGA from 'react-ga4';
 import Meta from "../components/SEO/Meta";
 
-const TRACKING_ID = process.env.NEXT_PUBLIC_TRACKING_ID;
+// Inlined at build time (static export) - set via the GitHub Actions repo variable
+const TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 
 // Only initialize Google Analytics if tracking ID is provided
 if (TRACKING_ID) {

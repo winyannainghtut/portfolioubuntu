@@ -58,5 +58,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Styles markdown rendered in the Blog app (`prose` classes)
+    require('@tailwindcss/typography'),
+  ],
 }
