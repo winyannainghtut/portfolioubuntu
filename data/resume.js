@@ -185,7 +185,9 @@ const certifications = [
     {
         id: "aws-devops-pro",
         title: "AWS Certified DevOps Engineer – Professional",
-        org: "Amazon Web Services (AWS)"
+        org: "Amazon Web Services (AWS)",
+        link: "https://www.credly.com/badges/7c5b9f4d-0404-4ae6-8afb-d47b5ce0b64a",
+        badge: "https://images.credly.com/images/bd31ef42-d460-493e-8503-39592aaf0458/image.png"
     },
     {
         id: "aws-saa",
@@ -223,12 +225,42 @@ const certifications = [
         badge: "https://images.credly.com/images/9945dfcb-1cca-4529-85e6-db1be3782210/kubernetes-security-specialist-logo2.png"
     },
     {
+        id: "kcna",
+        title: "KCNA: Kubernetes and Cloud Native Associate",
+        org: "The Linux Foundation",
+        link: "https://www.credly.com/badges/20eaa565-273f-4f81-b0dc-761caf55df99",
+        badge: "https://images.credly.com/images/f28f1d88-428a-47f6-95b5-7da1dd6c1000/KCNA_badge.png"
+    },
+    {
+        id: "kcsa",
+        title: "KCSA: Kubernetes and Cloud Native Security Associate",
+        org: "The Linux Foundation",
+        link: "https://www.credly.com/badges/faeb5e3f-e270-4072-a3cb-31a6852f21db",
+        badge: "https://images.credly.com/images/67dd8a95-8876-4051-9cb9-3d97c204f85a/image.png"
+    },
+    {
         id: "ccnp-enterprise",
         title: "Cisco CCNP Enterprise",
         subtitle: "Includes ENCOR & ENARSI",
         org: "Cisco",
         link: "https://www.credly.com/badges/b43a52a9-8f21-4508-9a90-6e8c9f969de2",
         badge: "https://images.credly.com/images/07f70c56-f067-458e-bbe5-736f055f0cce/linkedin_thumb_CCNP_Enterprise_large.png"
+    },
+    {
+        id: "cisco-specialist-enterprise-core",
+        title: "Cisco Certified Specialist – Enterprise Core",
+        subtitle: "ENCOR",
+        org: "Cisco",
+        link: "https://www.credly.com/badges/37710967-29c3-466b-9eee-50a9b36199bc",
+        badge: "https://images.credly.com/images/e544ac8f-cd4e-4262-9de1-1174680b3bb4/blob"
+    },
+    {
+        id: "cisco-specialist-enterprise-advanced-infrastructure",
+        title: "Cisco Certified Specialist – Enterprise Advanced Infrastructure",
+        subtitle: "ENARSI",
+        org: "Cisco",
+        link: "https://www.credly.com/badges/3c447397-0189-4563-9be5-fec0c06054de",
+        badge: "https://images.credly.com/images/79bdda6a-bac2-4549-805c-2c3b3c2d2c44/blob"
     },
     {
         id: "ccna",
