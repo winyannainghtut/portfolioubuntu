@@ -265,7 +265,10 @@ const certifications = [
     {
         id: "ccna",
         title: "Cisco Certified Network Associate (CCNA)",
-        org: "Cisco"
+        subtitle: "Routing and Switching",
+        org: "Cisco",
+        link: "https://www.credly.com/badges/9f2034db-b590-48a2-99b1-7db88e31aa6a",
+        badge: "https://images.credly.com/images/a31c0301-ff96-4cee-9435-0a4b40ce6e66/cisco_ccna_R_26S.png"
     }
 ];
 
