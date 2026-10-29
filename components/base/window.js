@@ -5,9 +5,10 @@ import ReactGA from 'react-ga4';
 import { displayTerminal } from '../apps/terminal'
 
 export class Window extends Component {
-    constructor() {
-        super();
-        this.id = null;
+    constructor(props) {
+        super(props);
+        // Set up front so the first render already carries the DOM id (componentDidMount looks it up)
+        this.id = props.id;
         this.startX = 60;
         this.startY = 10;
         this.state = {
@@ -24,8 +25,12 @@ export class Window extends Component {
     }
 
     componentDidMount() {
-        this.id = this.props.id;
         this.setDefaultWindowDimenstion();
+
+        // Phones: windows open full-screen; there's no room to drag them around
+        if (window.innerWidth < 768) {
+            this.maximizeWindow();
+        }
 
         // google analytics
         ReactGA.send({ hitType: "pageview", page: `/${this.id}`, title: "Custom Title" });

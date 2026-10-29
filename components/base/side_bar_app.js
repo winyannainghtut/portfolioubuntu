@@ -33,7 +33,15 @@ export class SideBarApp extends Component {
         return (
             <div
                 tabIndex="0"
+                role="button"
+                aria-label={this.props.title}
                 onClick={this.openApp}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.openApp();
+                    }
+                }}
                 onMouseEnter={() => {
                     this.setState({ showTitle: true });
                 }}

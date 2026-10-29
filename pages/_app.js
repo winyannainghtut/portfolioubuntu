@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import 'highlight.js/styles/github-dark.css'
 import '../styles/index.css'
 import ErrorBoundary from '../components/ErrorBoundary'
 

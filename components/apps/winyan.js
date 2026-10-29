@@ -1,19 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
+import Link from 'next/link';
 import ReactGA from 'react-ga4';
+import { useAssetPath } from '../../lib/asset-path';
+import {
+    profile,
+    links,
+    gitlabRepoUrl,
+    aboutCards,
+    experiences,
+    projects,
+    moreLabs,
+    certifications,
+    education,
+    skillCategories
+} from '../../data/resume';
+
+const navItems = [
+    { id: "about", label: "About Me", icon: "./themes/Yaru/status/about.svg" },
+    { id: "experience", label: "Experience", icon: "./themes/Yaru/status/experience.svg" },
+    { id: "projects", label: "Projects", icon: "./themes/Yaru/status/projects.svg" },
+    { id: "certifications", label: "Certifications", icon: "./themes/Yaru/status/education.svg" },
+    { id: "education", label: "Education", icon: "./themes/Yaru/status/education.svg" },
+    { id: "skills", label: "Skills", icon: "./themes/Yaru/status/skills.svg" },
+    { id: "contact", label: "Contact", icon: "./themes/Yaru/status/contact.svg" },
+    { id: "resume", label: "Resume", icon: "./themes/Yaru/status/download.svg" },
+];
 
 export class AboutWinYan extends Component {
 
     constructor() {
         super();
-        this.screens = {};
-        this.state = {
-            screen: () => { },
-            active_screen: "about",
-            navbar: false,
-        }
-    }
-
-    componentDidMount() {
         this.screens = {
             "about": <About />,
             "experience": <Experience />,
@@ -24,50 +40,42 @@ export class AboutWinYan extends Component {
             "contact": <Contact />,
             "resume": <Resume />,
         }
+        this.state = {
+            active_screen: "about",
+            navbar: false,
+        }
+    }
 
+    componentDidMount() {
         let lastVisitedScreen = localStorage.getItem("about-section");
-        if (lastVisitedScreen === null || lastVisitedScreen === undefined) {
+        if (!this.screens[lastVisitedScreen]) {
             lastVisitedScreen = "about";
         }
 
-        this.changeScreen(document.getElementById(lastVisitedScreen));
+        this.changeScreen(lastVisitedScreen);
     }
 
-    changeScreen = (e) => {
-        const screen = e.id || e.target.id;
+    changeScreen = (screen) => {
         localStorage.setItem("about-section", screen);
         ReactGA.send({ hitType: "pageview", page: `/${screen}`, title: "Custom Title" });
 
-        this.setState({
-            screen: this.screens[screen],
-            active_screen: screen
-        });
+        this.setState({ active_screen: screen });
     }
 
     showNavBar = () => {
         this.setState({ navbar: !this.state.navbar });
     }
 
+    // Rendered twice (desktop sidebar + mobile dropdown), so items carry no DOM ids
     renderNavLinks = () => {
-        const navItems = [
-            { id: "about", label: "About Me", icon: "./themes/Yaru/status/about.svg" },
-            { id: "experience", label: "Experience", icon: "./themes/Yaru/status/experience.svg" },
-            { id: "projects", label: "Projects", icon: "./themes/Yaru/status/projects.svg" },
-            { id: "certifications", label: "Certifications", icon: "./themes/Yaru/status/education.svg" },
-            { id: "education", label: "Education", icon: "./themes/Yaru/status/education.svg" },
-            { id: "skills", label: "Skills", icon: "./themes/Yaru/status/skills.svg" },
-            { id: "contact", label: "Contact", icon: "./themes/Yaru/status/contact.svg" },
-            { id: "resume", label: "Resume", icon: "./themes/Yaru/status/download.svg" },
-        ];
-
         return (
             <>
                 {navItems.map((item) => (
                     <div
                         key={item.id}
-                        id={item.id}
+                        data-screen={item.id}
                         tabIndex="0"
-                        onFocus={this.changeScreen}
+                        onFocus={() => this.changeScreen(item.id)}
                         className={`
                             ${this.state.active_screen === item.id
                                 ? "bg-ub-orange bg-opacity-100 hover:bg-opacity-95"
@@ -100,10 +108,10 @@ export class AboutWinYan extends Component {
                     </div>
                     {this.renderNavLinks()}
                 </div>
-                
+
                 {/* Mobile Navigation Toggle */}
-                <div 
-                    onClick={this.showNavBar} 
+                <div
+                    onClick={this.showNavBar}
                     className="md:hidden flex flex-col items-center justify-center absolute bg-ub-cool-grey/90 backdrop-blur-sm rounded-lg w-8 h-8 top-2 left-2 z-20 cursor-pointer hover:bg-ub-orange/20 transition-colors"
                 >
                     <div className="w-4 border-t border-white"></div>
@@ -117,11 +125,11 @@ export class AboutWinYan extends Component {
                         {this.renderNavLinks()}
                     </div>
                 </div>
-                
+
                 {/* Main Content */}
                 <div className="flex flex-col w-3/4 md:w-4/5 justify-start items-center flex-grow bg-ub-grey overflow-y-auto windowMainScreen">
                     <div className="w-full h-full">
-                        {this.state.screen}
+                        {this.screens[this.state.active_screen]}
                     </div>
                 </div>
             </div>
@@ -136,25 +144,51 @@ export const displayAboutWinYan = () => {
 }
 
 // ============================================
+// Shared icons
+// ============================================
+const icons = {
+    linkedin: (className) => (
+        <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+    ),
+    gitlab: (className) => (
+        <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="m23.6 9.593-.033-.086L20.3.98a.851.851 0 0 0-.336-.405.879.879 0 0 0-1.002.07.866.866 0 0 0-.285.386l-2.212 6.779H7.535L5.323 1.031a.857.857 0 0 0-.286-.386.878.878 0 0 0-1.002-.07.856.856 0 0 0-.337.406L.433 9.502l-.032.086a6.066 6.066 0 0 0 2.012 7.01l.012.009.031.023 4.994 3.745 2.47 1.871 1.503 1.137a1.009 1.009 0 0 0 1.219 0l1.503-1.137 2.47-1.871 5.026-3.768.014-.011a6.072 6.072 0 0 0 2.011-7.003Z"/></svg>
+    ),
+    github: (className) => (
+        <svg className={className} fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+    ),
+    email: (className) => (
+        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+    ),
+    globe: (className) => (
+        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+    ),
+    external: (className) => (
+        <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+    ),
+};
+
+// ============================================
 // About Section
 // ============================================
-function About() {
+export function About({ simpleViewLink = true }) {
+    const asset = useAssetPath();
+
     return (
         <div className="flex flex-col items-center px-4 py-6 md:py-8">
             {/* Avatar with animated ring */}
             <div className="avatar-ring mb-4">
                 <div className="w-24 md:w-32 bg-white rounded-full overflow-hidden">
-                    <img className="w-full" src="./images/logos/bitmoji.png" alt="Win Yan Naing Htut" />
+                    <img className="w-full" src={asset("images/logos/bitmoji.png")} alt={profile.name} />
                 </div>
             </div>
-            
+
             {/* Name and Title */}
             <div className="text-center mb-6">
                 <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                    Win Yan Naing Htut
+                    {profile.name}
                 </h1>
                 <p className="text-lg md:text-xl text-gray-300">
-                    <span className="gradient-text font-bold">Cloud & DevOps Engineer | Platform Automation</span>
+                    <span className="gradient-text font-bold">{profile.title}</span>
                 </p>
             </div>
 
@@ -163,61 +197,47 @@ function About() {
 
             {/* Bio Cards */}
             <div className="w-full max-w-2xl space-y-4 px-2">
-                <div className="glass-card p-4 hover-lift">
-                    <div className="flex items-start gap-3">
-                        <span className="text-2xl">☁️</span>
-                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            <span className="font-semibold text-white">Cloud & DevOps Engineer</span> with 9+ years of IT experience, combining AWS infrastructure engineering in Singapore GCC/GCC+ environments with a strong enterprise networking foundation.
-                        </p>
+                {aboutCards.map((card, index) => (
+                    <div key={index} className="glass-card p-4 hover-lift">
+                        <div className="flex items-start gap-3">
+                            <span className="text-2xl">{card.icon}</span>
+                            <p className="text-sm md:text-base text-gray-200 leading-relaxed">
+                                {card.segments.map((segment, i) => (
+                                    <span
+                                        key={i}
+                                        className={segment.strong ? "font-semibold text-white" : segment.highlight ? "text-ubt-gedit-orange font-medium" : undefined}
+                                    >
+                                        {segment.text}
+                                    </span>
+                                ))}
+                            </p>
+                        </div>
                     </div>
-                </div>
-
-                <div className="glass-card p-4 hover-lift">
-                    <div className="flex items-start gap-3">
-                        <span className="text-2xl">💼</span>
-                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            Currently a Cloud Engineer at <span className="text-ubt-gedit-orange font-medium">NCS PTE Ltd (Singapore)</span>, delivering Terraform-based infrastructure automation, GitLab CI/CD, IAM/OIDC integration, cloud security and operational monitoring.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="glass-card p-4 hover-lift">
-                    <div className="flex items-start gap-3">
-                        <span className="text-2xl">🏅</span>
-                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            <span className="font-semibold text-white">CNCF Kubestronaut</span> (CKA, CKAD, CKS, KCNA, KCSA), AWS Certified DevOps Engineer – Professional, AWS Solutions Architect – Associate, HashiCorp Terraform Associate and Cisco CCNP Enterprise.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="glass-card p-4 hover-lift">
-                    <div className="flex items-start gap-3">
-                        <span className="text-2xl">🧪</span>
-                        <p className="text-sm md:text-base text-gray-200 leading-relaxed">
-                            I also build independent platform projects — Kubernetes, HCP Vault/Boundary and policy-as-code with OPA/Rego. Check out the Projects section!
-                        </p>
-                    </div>
-                </div>
+                ))}
             </div>
-            
+
             {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-3 mt-8">
-                <a href="https://www.linkedin.com/in/wynh/" target="_blank" rel="noopener noreferrer" 
-                   className="btn-primary">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                    {icons.linkedin("w-4 h-4 mr-2")}
                     LinkedIn
                 </a>
-                <a href="https://gitlab.com/winyannainghtut" target="_blank" rel="noopener noreferrer"
-                   className="btn-secondary">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="m23.6 9.593-.033-.086L20.3.98a.851.851 0 0 0-.336-.405.879.879 0 0 0-1.002.07.866.866 0 0 0-.285.386l-2.212 6.779H7.535L5.323 1.031a.857.857 0 0 0-.286-.386.878.878 0 0 0-1.002-.07.856.856 0 0 0-.337.406L.433 9.502l-.032.086a6.066 6.066 0 0 0 2.012 7.01l.012.009.031.023 4.994 3.745 2.47 1.871 1.503 1.137a1.009 1.009 0 0 0 1.219 0l1.503-1.137 2.47-1.871 5.026-3.768.014-.011a6.072 6.072 0 0 0 2.011-7.003Z"/></svg>
+                <a href={links.gitlab} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                    {icons.gitlab("w-4 h-4 mr-2")}
                     GitLab
                 </a>
-                <a href="mailto:winyannainghtut98@gmail.com" 
-                   className="btn-secondary">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                <a href={`mailto:${links.email}`} className="btn-secondary">
+                    {icons.email("w-4 h-4 mr-2")}
                     Email
                 </a>
             </div>
+
+            {simpleViewLink && (
+                <p className="mt-6 text-xs text-gray-500">
+                    Prefer a plain page?{" "}
+                    <Link href="/about/" className="text-ub-orange hover:underline">View the simple version</Link>
+                </p>
+            )}
         </div>
     );
 }
@@ -225,82 +245,14 @@ function About() {
 // ============================================
 // Experience Section
 // ============================================
-function Experience() {
-    const experiences = [
-        {
-            title: "Cloud Engineer",
-            company: "NCS PTE Ltd (Contract via Avensys Consulting)",
-            location: "Singapore",
-            period: "Jan 2024 – Present",
-            current: true,
-            highlights: [
-                "Operate AWS infrastructure in Singapore GCC/GCC+ environments, including VPC, load balancers, VPC endpoints, API Gateway, WAF, IAM and CloudWatch",
-                "Develop Terraform modules for CSV-driven Security Group/NACL rules in GCC+, with remote state and Git-based version control",
-                "Engineered AWS ACM and GitLab CI/CD certificate lifecycle workflows for 12 public-facing and intranet applications across UAT and production, including ALB-attached TLS certificates and SHIP-HATS/GovTech CTS automation",
-                "Built EventBridge-triggered GitLab/Ansible certificate rotation for 197 Windows IIS and Linux Nginx servers, using IAM role-authorized ACM exports, PFX conversion, IIS binding updates and resource-group-specific child pipelines",
-                "Provision Terraform-managed GitLab Runners and AWS CLI/Terraform container images for infrastructure CI/CD pipelines",
-                "Configure IAM Identity Center (SSO) and GitLab OIDC trust for secure, automated AWS deployments",
-                "Integrate API Gateway, Lambda and Nginx reverse proxy for partner agency APIs; configure CloudWatch/SNS alerts and StackOps (ELK/Kibana) monitoring",
-                "Manage AWS WAF, Trend Micro Vision One and EC2-hosted Fortinet firewalls with FortiManager/FortiAnalyzer"
-            ]
-        },
-        {
-            title: "Infra Engineer",
-            company: "Gain City Electronic PTE Ltd",
-            location: "Singapore",
-            period: "Feb 2023 – Dec 2023",
-            highlights: [
-                "Maintained hybrid AWS/on-premises connectivity via Direct Connect; diagnosed VPC routing, firewall, load-balancer and application access issues",
-                "Operated L2/L3 enterprise networks, Fortinet firewalls, Secure SD-WAN, Active Directory and Darktrace NDR",
-                "Maintained NetBox/Cacti/Zabbix inventory and monitoring, plus operational documentation"
-            ]
-        },
-        {
-            title: "Network Engineer",
-            company: "Frontiir Co., Ltd.",
-            location: "Yangon, Myanmar",
-            period: "Apr 2021 – Jan 2023",
-            highlights: [
-                "Designed IP addressing and implemented BGP, MPLS, OSPF and IS-IS across Cisco, Juniper and Extreme networks, including carrier-grade NAT infrastructure",
-                "Implemented TACACS+/AAA access controls, led regional network migrations and maintained HLD/LLD, MOP and SOP documentation"
-            ]
-        },
-        {
-            title: "Internet Core Engineer",
-            company: "Mytel Myanmar",
-            location: "Yangon, Myanmar",
-            period: "Jul 2020 – Feb 2021",
-            highlights: [
-                "Troubleshot fixed-broadband core networks and supported BRAS/OLT deployments across Juniper, Huawei and ZTE platforms; maintained monitoring and operational procedures"
-            ]
-        },
-        {
-            title: "Associate Network Engineer",
-            company: "Frontiir Co., Ltd.",
-            location: "Yangon, Myanmar",
-            period: "May 2018 – Jun 2020",
-            highlights: [
-                "Configured distribution/access networks and OSPF/IS-IS on Linux-based routers; resolved network faults and supported new township deployments"
-            ]
-        },
-        {
-            title: "Assistant Network Engineer",
-            company: "Frontiir Co., Ltd.",
-            location: "Yangon, Myanmar",
-            period: "Apr 2017 – May 2018",
-            highlights: [
-                "Installed switches, routers, wireless links and public Wi-Fi systems using Ubiquiti, Ruckus and Cambium devices; maintained network documentation"
-            ]
-        }
-    ];
-
+export function Experience() {
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Work Experience</h2>
-            
+
             <div className="max-w-3xl mx-auto space-y-6">
-                {experiences.map((exp, index) => (
-                    <div key={index} className="timeline-item pl-6 pb-6">
+                {experiences.map((exp) => (
+                    <div key={exp.id} className="timeline-item pl-6 pb-6">
                         <div className="glass-card p-4 md:p-5">
                             <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
                                 <div>
@@ -339,37 +291,33 @@ function Experience() {
 // ============================================
 // Projects Section
 // ============================================
-function Projects() {
-    const repoUrl = (repo) => `https://gitlab.com/winyannainghtut/${repo}`;
 
-    const projects = [
-        {
-            title: "Boundary Worker Autoscaling on Kubernetes",
-            description: "Designed a Datadog-driven Kubernetes HPA/StatefulSet PoC for HCP Boundary workers. Automated worker registration and scale-in deregistration using Vault Kubernetes authentication and pod lifecycle hooks.",
-            repo: "boundary-k8s-autoscaling-poc"
-        },
-        {
-            title: "HCP Terraform VCS & OPA Policy Guardrails",
-            description: "Built GitLab-linked HCP Terraform workspaces with remote-state dependencies and run triggers; authored OPA/Rego rules for EC2 sizing, subnet CIDRs, and Security Group/NACL configuration with test fixtures.",
-            repo: "tf-vcs"
-        },
-        {
-            title: "ECS Fargate, VPC Lattice & Envoy mTLS",
-            description: "Created Terraform for ECS Fargate services connected via VPC Lattice TLS passthrough and Envoy sidecar mTLS, integrating ACM Private CA, AWS Secrets Manager, SSM Parameter Store and private DNS.",
-            repo: "tf-ecs"
-        },
-        {
-            title: "GitLab CI + Ansible: Vault SSH CA Trust",
-            description: "Automated deployment of Vault SSH CA trust and TrustedUserCAKeys to private Linux targets using an in-cluster GitLab Runner and Ansible, including idempotent updates, sshd validation and deployment checks.",
-            repo: "ansible-lab"
-        }
-    ];
+// Summarises GitLab stats generated at build time (scripts/fetch-gitlab-projects.js)
+function repoMeta(stats) {
+    if (!stats) return null;
+    const parts = [];
+    if (stats.lastActivityAt) {
+        const updated = new Date(stats.lastActivityAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        parts.push(`Updated ${updated}`);
+    }
+    const languages = Object.entries(stats.languages || {})
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([name, percent]) => `${name} ${Math.round(percent)}%`);
+    return parts.concat(languages).join(' · ') || null;
+}
 
-    const moreLabs = [
-        { title: "EKS infrastructure with Terraform", repo: "eks-terraform" },
-        { title: "Kong API Gateway on EKS", repo: "eks-kong-apigw" },
-        { title: "HCP Vault Dedicated on AWS", repo: "hcp-aws-vault-dedicated-cluster" }
-    ];
+export function Projects() {
+    const asset = useAssetPath();
+    const statsUrl = asset("projects.json");
+    const [stats, setStats] = useState({});
+
+    useEffect(() => {
+        fetch(statsUrl)
+            .then((response) => (response.ok ? response.json() : {}))
+            .then(setStats)
+            .catch(() => setStats({}));
+    }, [statsUrl]);
 
     return (
         <div className="px-4 md:px-8 py-6">
@@ -383,31 +331,35 @@ function Projects() {
                     </p>
                 </div>
 
-                {projects.map((project, index) => (
-                    <div key={index} className="glass-card p-4 md:p-5 hover-lift">
-                        <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
-                        <p className="text-sm text-gray-300 leading-relaxed mb-3">{project.description}</p>
-                        <a
-                            href={repoUrl(project.repo)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1"
-                        >
-                            Repo: {project.repo}
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                        </a>
-                    </div>
-                ))}
+                {projects.map((project) => {
+                    const meta = repoMeta(stats[project.repo]);
+                    return (
+                        <div key={project.repo} className="glass-card p-4 md:p-5 hover-lift">
+                            <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                            <p className="text-sm text-gray-300 leading-relaxed mb-3">{project.description}</p>
+                            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                <a
+                                    href={gitlabRepoUrl(project.repo)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1"
+                                >
+                                    Repo: {project.repo}
+                                    {icons.external("w-3 h-3")}
+                                </a>
+                                {meta && <span className="text-xs text-gray-500">{meta}</span>}
+                            </div>
+                        </div>
+                    );
+                })}
 
                 <div className="glass-card p-4 md:p-5">
                     <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">More labs</h3>
                     <div className="flex flex-wrap gap-2">
-                        {moreLabs.map((lab, index) => (
+                        {moreLabs.map((lab) => (
                             <a
-                                key={index}
-                                href={repoUrl(lab.repo)}
+                                key={lab.repo}
+                                href={gitlabRepoUrl(lab.repo)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="skill-badge"
@@ -425,91 +377,48 @@ function Projects() {
 // ============================================
 // Certifications Section
 // ============================================
-function Certifications() {
-    const certs = [
-        {
-            title: "CNCF Kubestronaut",
-            subtitle: "Includes CKA, CKAD, CKS, KCNA, KCSA",
-            org: "Cloud Native Computing Foundation",
-            featured: true,
-            badge: "★ All 5 Kubernetes Certifications!",
-            link: "https://www.credly.com/badges/45647b96-2c2b-4a83-ad6d-785a518f7447"
-        },
-        {
-            title: "AWS Certified DevOps Engineer – Professional",
-            org: "Amazon Web Services (AWS)"
-        },
-        {
-            title: "AWS Certified Solutions Architect – Associate",
-            org: "Amazon Web Services (AWS)",
-            link: "https://www.credly.com/badges/60a9411e-2b4d-4e2e-9289-493873092b3e"
-        },
-        {
-            title: "HashiCorp Certified: Terraform Associate (003)",
-            org: "HashiCorp",
-            link: "https://www.credly.com/badges/2f155a8d-f50e-4f05-859a-941168083eb0"
-        },
-        {
-            title: "CKA: Certified Kubernetes Administrator",
-            org: "The Linux Foundation",
-            link: "https://www.credly.com/badges/0e1cfe79-4b8a-46b7-8354-80a7476772d9"
-        },
-        {
-            title: "CKAD: Certified Kubernetes Application Developer",
-            org: "The Linux Foundation",
-            link: "https://www.credly.com/badges/75574523-1bd7-4dfa-9cf4-f3680df2cd98"
-        },
-        {
-            title: "CKS: Certified Kubernetes Security Specialist",
-            org: "The Linux Foundation",
-            link: "https://www.credly.com/badges/441015bc-92a7-4bdf-8394-7fd6bbfa74a7"
-        },
-        {
-            title: "Cisco CCNP Enterprise",
-            subtitle: "Includes ENCOR & ENARSI",
-            org: "Cisco",
-            link: "https://www.credly.com/badges/b43a52a9-8f21-4508-9a90-6e8c9f969de2"
-        },
-        {
-            title: "Cisco Certified Network Associate (CCNA)",
-            org: "Cisco"
-        }
-    ];
-
+export function Certifications() {
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Certifications</h2>
-            
+
             <div className="max-w-3xl mx-auto grid gap-4">
-                {certs.map((cert, index) => (
-                    <div key={index} className={`cert-card ${cert.featured ? 'featured' : ''}`}>
+                {certifications.map((cert) => (
+                    <div key={cert.id} className={`cert-card ${cert.featured ? 'featured' : ''}`}>
                         <div className="flex items-start justify-between gap-3">
+                            {cert.badge ? (
+                                <img
+                                    className="w-14 h-14 object-contain flex-shrink-0"
+                                    src={cert.badge}
+                                    alt={`${cert.title} badge`}
+                                    loading="lazy"
+                                />
+                            ) : (
+                                <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 text-2xl" aria-hidden="true">
+                                    🎖️
+                                </div>
+                            )}
                             <div className="flex-1">
                                 <h3 className="font-bold text-white text-base md:text-lg">{cert.title}</h3>
                                 {cert.subtitle && (
                                     <p className="text-sm text-gray-400">{cert.subtitle}</p>
                                 )}
                                 <p className="text-sm text-gray-300 mt-1">{cert.org}</p>
-                                {cert.period && (
-                                    <p className="text-xs text-gray-500 mt-0.5">{cert.period}</p>
-                                )}
-                                {cert.badge && (
+                                {cert.tag && (
                                     <span className="inline-block mt-2 text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-full font-medium">
-                                        {cert.badge}
+                                        {cert.tag}
                                     </span>
                                 )}
                             </div>
                             {cert.link && (
-                                <a 
-                                    href={cert.link} 
-                                    target="_blank" 
+                                <a
+                                    href={cert.link}
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex-shrink-0 text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1"
                                 >
                                     Verify
-                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                    </svg>
+                                    {icons.external("w-3 h-3")}
                                 </a>
                             )}
                         </div>
@@ -523,28 +432,14 @@ function Certifications() {
 // ============================================
 // Education Section
 // ============================================
-function Education() {
-    const degrees = [
-        {
-            title: "Master of Science (MSc) in Cyber Security",
-            school: "University of West London, UK · Aventis School of Management, Singapore",
-            period: "Mar 2025 – Jul 2026",
-            tag: "Part-time"
-        },
-        {
-            title: "Bachelor of Arts (BA) in English",
-            school: "Yangon University of Distance Education, Myanmar",
-            period: "2014 – 2018"
-        }
-    ];
-
+export function Education() {
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Education</h2>
 
             <div className="max-w-2xl mx-auto space-y-4">
-                {degrees.map((degree, index) => (
-                    <div key={index} className="glass-card p-6">
+                {education.map((degree) => (
+                    <div key={degree.id} className="glass-card p-6">
                         <div className="flex items-start gap-4">
                             <div className="w-12 h-12 rounded-full bg-ub-orange/20 flex items-center justify-center flex-shrink-0">
                                 <svg className="w-6 h-6 text-ub-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -576,93 +471,40 @@ function Education() {
 // ============================================
 // Contact Section
 // ============================================
-function Contact() {
+export function Contact() {
     const contacts = [
-        {
-            label: "Email",
-            value: "winyannainghtut98@gmail.com",
-            href: "mailto:winyannainghtut98@gmail.com",
-            icon: (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-            )
-        },
-        {
-            label: "LinkedIn",
-            value: "linkedin.com/in/wynh",
-            href: "https://www.linkedin.com/in/wynh/",
-            external: true,
-            icon: (
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-            )
-        },
-        {
-            label: "GitHub",
-            value: "github.com/winyannainghtut",
-            href: "https://github.com/winyannainghtut",
-            external: true,
-            icon: (
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-            )
-        },
-        {
-            label: "GitLab",
-            value: "gitlab.com/winyannainghtut",
-            href: "https://gitlab.com/winyannainghtut",
-            external: true,
-            icon: (
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="m23.6 9.593-.033-.086L20.3.98a.851.851 0 0 0-.336-.405.879.879 0 0 0-1.002.07.866.866 0 0 0-.285.386l-2.212 6.779H7.535L5.323 1.031a.857.857 0 0 0-.286-.386.878.878 0 0 0-1.002-.07.856.856 0 0 0-.337.406L.433 9.502l-.032.086a6.066 6.066 0 0 0 2.012 7.01l.012.009.031.023 4.994 3.745 2.47 1.871 1.503 1.137a1.009 1.009 0 0 0 1.219 0l1.503-1.137 2.47-1.871 5.026-3.768.014-.011a6.072 6.072 0 0 0 2.011-7.003Z"/>
-                </svg>
-            )
-        },
-        {
-            label: "Portfolio",
-            value: "portfolio.winyan.dev",
-            href: "https://portfolio.winyan.dev",
-            external: true,
-            icon: (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-            )
-        }
+        { label: "Email", value: links.email, href: `mailto:${links.email}`, icon: icons.email },
+        { label: "LinkedIn", value: "linkedin.com/in/wynh", href: links.linkedin, external: true, icon: icons.linkedin },
+        { label: "GitHub", value: "github.com/winyannainghtut", href: links.github, external: true, icon: icons.github },
+        { label: "GitLab", value: "gitlab.com/winyannainghtut", href: links.gitlab, external: true, icon: icons.gitlab },
+        { label: "Portfolio", value: "portfolio.winyan.dev", href: links.portfolio, external: true, icon: icons.globe },
     ];
 
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Get In Touch</h2>
-            
+
             <div className="max-w-xl mx-auto space-y-3">
-                {contacts.map((contact, index) => (
+                {contacts.map((contact) => (
                     <a
-                        key={index}
+                        key={contact.label}
                         href={contact.href}
                         target={contact.external ? "_blank" : undefined}
                         rel={contact.external ? "noopener noreferrer" : undefined}
                         className="glass-card p-4 flex items-center gap-4 hover-lift group cursor-pointer block"
                     >
                         <div className="w-10 h-10 rounded-full bg-ub-orange/20 flex items-center justify-center text-ub-orange group-hover:bg-ub-orange group-hover:text-white transition-colors">
-                            {contact.icon}
+                            {contact.icon("w-5 h-5")}
                         </div>
                         <div className="flex-1">
                             <p className="text-xs text-gray-400 uppercase tracking-wider">{contact.label}</p>
                             <p className="text-white group-hover:text-ub-orange transition-colors">{contact.value}</p>
                         </div>
-                        {contact.external && (
-                            <svg className="w-4 h-4 text-gray-500 group-hover:text-ub-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                        )}
+                        {contact.external && icons.external("w-4 h-4 text-gray-500 group-hover:text-ub-orange transition-colors")}
                     </a>
                 ))}
             </div>
-            
+
             <div className="max-w-xl mx-auto mt-8 text-center">
                 <p className="text-sm text-gray-400">
                     I'm always open to discussing new opportunities, cloud architecture projects, or collaboration on DevOps initiatives. Feel free to reach out!
@@ -675,40 +517,7 @@ function Contact() {
 // ============================================
 // Skills Section
 // ============================================
-function Skills() {
-    const skillCategories = [
-        {
-            title: "AWS & Cloud",
-            icon: "☁️",
-            skills: ["GCC/GCC+", "EC2", "VPC", "ALB/NLB", "API Gateway", "VPC endpoints", "S3", "WAF", "CloudWatch", "ACM", "EventBridge"]
-        },
-        {
-            title: "IaC & CI/CD",
-            icon: "🏗️",
-            skills: ["Terraform", "Reusable modules", "Remote state", "GitLab CI/CD", "SHIP-HATS", "GitLab Runners", "OIDC", "Ansible"]
-        },
-        {
-            title: "Platform (labs)",
-            icon: "☸️",
-            skills: ["Kubernetes", "EKS", "ECS/Fargate", "Docker", "Helm", "HPA", "Kong Gateway API", "VPC Lattice", "Envoy"]
-        },
-        {
-            title: "Security & Governance",
-            icon: "🔐",
-            skills: ["IAM Identity Center (SSO)", "Security Groups/NACLs", "Fortinet", "Vault/Boundary (labs)", "PKI", "OPA/Rego (labs)"]
-        },
-        {
-            title: "Observability & Ops",
-            icon: "📈",
-            skills: ["CloudWatch", "SNS", "StackOps (ELK/Kibana)", "Datadog (labs)", "Zabbix", "NetBox", "Bash", "PowerShell"]
-        },
-        {
-            title: "Network Engineering",
-            icon: "🌐",
-            skills: ["Cisco", "Juniper", "BGP", "MPLS", "OSPF", "IS-IS", "Routing", "SD-WAN", "FortiManager", "FortiAnalyzer"]
-        }
-    ];
-
+export function Skills() {
     return (
         <div className="px-4 md:px-8 py-6">
             <h2 className="section-header text-2xl md:text-3xl text-center mb-8">Technical Skills</h2>
@@ -725,15 +534,15 @@ function Skills() {
                 </div>
 
                 {/* Skill Categories */}
-                {skillCategories.map((category, catIndex) => (
-                    <div key={catIndex} className="glass-card p-5">
+                {skillCategories.map((category) => (
+                    <div key={category.id} className="glass-card p-5">
                         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                             <span>{category.icon}</span>
                             {category.title}
                         </h3>
                         <div className="flex flex-wrap gap-2">
-                            {category.skills.map((skill, skillIndex) => (
-                                <span key={skillIndex} className="skill-badge">{skill}</span>
+                            {category.skills.map((skill) => (
+                                <span key={skill} className="skill-badge">{skill}</span>
                             ))}
                         </div>
                     </div>
@@ -757,12 +566,14 @@ function Skills() {
 // ============================================
 // Resume Section
 // ============================================
-function Resume() {
+export function Resume() {
+    const asset = useAssetPath();
+
     return (
-        <iframe 
-            className="h-full w-full" 
-            src="./files/WinYanNaingHtut_2026.pdf" 
-            title="Win Yan Naing Htut Resume" 
+        <iframe
+            className="h-full w-full"
+            src={asset(links.resume)}
+            title={`${profile.name} Resume`}
             frameBorder="0"
         />
     );

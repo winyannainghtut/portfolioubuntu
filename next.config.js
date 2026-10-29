@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Static HTML export to out/ for GitHub Pages
+  output: 'export',
   trailingSlash: true,
+
+  // This repo is the workspace root (stops Next picking up lockfiles in parent folders)
+  outputFileTracingRoot: __dirname,
   
   // Image optimization is disabled for static export
   // For dynamic hosting (Vercel), you can enable optimization

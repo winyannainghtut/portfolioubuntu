@@ -7,6 +7,8 @@ import { displayTrash } from './components/apps/trash';
 import { displayAboutWinYan } from './components/apps/winyan';
 import { displayTerminalCalc } from './components/apps/calc';
 import { displayBlog } from './components/apps/blog';
+import { displayFiles } from './components/apps/files';
+import { displayTars } from './components/apps/tars';
 
 const apps = [
     {
@@ -37,6 +39,24 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayAboutWinYan,
+    },
+    {
+        id: "tars",
+        title: "Ask TARS",
+        icon: './themes/Yaru/apps/tars.svg',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayTars,
+    },
+    {
+        id: "files",
+        title: "Files",
+        icon: './themes/Yaru/system/folder.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: false,
+        screen: displayFiles,
     },
     {
         id: "vscode",
@@ -86,7 +106,7 @@ const apps = [
     {
         id: "github",
         title: "GitLab",
-        icon: './themes/Yaru/apps/github.png',
+        icon: './themes/Yaru/apps/gitlab.svg',
         disabled: false,
         favourite: false,
         desktop_shortcut: true,

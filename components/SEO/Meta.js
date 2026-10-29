@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head';
-
-const SITE_URL = 'https://portfolio.winyan.dev';
+import { SITE_URL } from '../../lib/site';
 
 export default function Meta() {
     return (
@@ -56,20 +55,7 @@ export default function Meta() {
             <meta property="og:site_name" content="Win Yan Naing Htut Portfolio" />
             <meta property="og:locale" content="en_US" />
 
-            {/* Favicon and Icons */}
-            <link rel="icon" href="/images/logos/fevicon.svg" />
-            <link rel="apple-touch-icon" href="/images/logos/logo.png" />
-            
-            {/* Preconnect for performance */}
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-            <link rel="dns-prefetch" href="https://img.shields.io" />
-            
-            {/* Google Fonts with font-display swap */}
-            <link 
-                href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" 
-                rel="stylesheet"
-            />
+            {/* Favicon, RSS and fonts are site-wide: see pages/_document.js */}
         </Head>
     )
 }

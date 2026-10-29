@@ -9,6 +9,7 @@ import DesktopMenu from '../context menus/desktop-menu';
 import DefaultMenu from '../context menus/default';
 import $ from 'jquery';
 import ReactGA from 'react-ga4';
+import { setPendingPost } from '../../lib/deep-link';
 
 export class Desktop extends Component {
     constructor() {
@@ -38,14 +39,66 @@ export class Desktop extends Component {
         // google analytics
         ReactGA.send({ hitType: "pageview", page: "/desktop", title: "Custom Title" });
 
-        this.fetchAppsData();
+        this.fetchAppsData(this.openStartupApp);
         this.setContextListeners();
         this.setEventListeners();
         this.checkForNewFolders();
+
+        document.addEventListener('keydown', this.handleShortcutKeyDown);
+        document.addEventListener('keyup', this.handleShortcutKeyUp);
     }
 
     componentWillUnmount() {
         this.removeContextListeners();
+        document.removeEventListener('keydown', this.handleShortcutKeyDown);
+        document.removeEventListener('keyup', this.handleShortcutKeyUp);
+    }
+
+    // Deep links (/?post=<slug>, /?app=<id>), or the About app on phone-sized screens.
+    // pages/index.js removes the query from the URL once the Next.js router is ready.
+    openStartupApp = () => {
+        const params = new URLSearchParams(window.location.search);
+        const post = params.get('post');
+        const app = apps.find((a) => a.id === params.get('app') && !a.isExternalApp);
+
+        if (post) {
+            setPendingPost(post);
+            this.openApp('blog');
+        } else if (app) {
+            this.openApp(app.id);
+        } else if (window.innerWidth < 768) {
+            this.openApp('about-winyan');
+        }
+    }
+
+    // Ubuntu-style shortcuts. Alt+F4 can't be used: the OS closes the browser first.
+    handleShortcutKeyDown = (e) => {
+        const key = e.key.toLowerCase();
+
+        if (e.ctrlKey && e.altKey && key === 't') {
+            e.preventDefault();
+            this.openApp('terminal');
+        } else if (e.ctrlKey && e.altKey && key === 'w') {
+            const focused = Object.keys(this.state.focused_windows)
+                .find((id) => this.state.focused_windows[id] && this.state.closed_windows[id] === false);
+            if (focused) {
+                e.preventDefault();
+                document.getElementById(`close-${focused}`)?.click();
+            }
+        } else if (e.altKey && e.key === 'F1') {
+            e.preventDefault();
+            this.showAllApps();
+        } else if (e.key === 'Escape' && this.state.allAppsView) {
+            this.setState({ allAppsView: false });
+        }
+
+        // Super pressed and released on its own toggles the app grid
+        this.superPressedAlone = e.key === 'Meta';
+    }
+
+    handleShortcutKeyUp = (e) => {
+        if (e.key === 'Meta' && this.superPressedAlone) this.showAllApps();
+        this.superPressedAlone = false;
     }
 
     checkForNewFolders = () => {
@@ -154,7 +207,7 @@ export class Desktop extends Component {
         }
     }
 
-    fetchAppsData = () => {
+    fetchAppsData = (callback) => {
         let focused_windows = {}, closed_windows = {}, disabled_apps = {}, favourite_apps = {}, overlapped_windows = {}, minimized_windows = {};
         let desktop_apps = [];
         apps.forEach((app) => {
@@ -192,7 +245,7 @@ export class Desktop extends Component {
             overlapped_windows,
             minimized_windows,
             desktop_apps
-        });
+        }, callback);
         this.initFavourite = { ...favourite_apps };
     }
 

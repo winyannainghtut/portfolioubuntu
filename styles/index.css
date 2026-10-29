@@ -605,3 +605,13 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb:hover {
         transform: translateY(0);
     }
 }
+
+/* ========================================
+   Blog code blocks
+   ======================================== */
+/* Let the prose <pre> panel provide the background; highlight.js only colours tokens */
+.prose pre code.hljs {
+    background: transparent;
+    padding: 0;
+    color: #e6edf3;
+}

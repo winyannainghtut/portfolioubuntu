@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 export class Calc extends Component {
     constructor() {
         super();
+        this.root = React.createRef();
         this.state = {
             display: '0',
             previousValue: null,
@@ -141,9 +142,10 @@ export class Calc extends Component {
         }
     }
 
+    // Bound on the calculator element (not document), so it only reacts while Calc has focus
     handleKeyDown = (e) => {
         const key = e.key;
-        
+
         if (key >= '0' && key <= '9') {
             this.inputDigit(parseInt(key, 10));
         } else if (key === '.') {
@@ -155,7 +157,6 @@ export class Calc extends Component {
         } else if (key === '*') {
             this.performOperation('*');
         } else if (key === '/') {
-            e.preventDefault();
             this.performOperation('/');
         } else if (key === 'Enter' || key === '=') {
             this.performOperation('=');
@@ -165,15 +166,15 @@ export class Calc extends Component {
             this.backspace();
         } else if (key === '%') {
             this.inputPercent();
+        } else {
+            return;
         }
+        // Stop a focused button from also activating on Enter
+        e.preventDefault();
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', this.handleKeyDown);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleKeyDown);
+        this.root.current?.focus();
     }
 
     render() {
@@ -195,7 +196,12 @@ export class Calc extends Component {
         );
 
         return (
-            <div className="h-full w-full bg-ub-grey flex items-center justify-center">
+            <div
+                ref={this.root}
+                tabIndex={0}
+                onKeyDown={this.handleKeyDown}
+                className="h-full w-full bg-ub-grey flex items-center justify-center outline-none"
+            >
                 <div className="bg-[#2d2d2d] rounded-lg shadow-lg overflow-hidden" style={{ width: '240px' }}>
                     {/* Display */}
                     <div className="p-3 bg-[#1a1a1a]">

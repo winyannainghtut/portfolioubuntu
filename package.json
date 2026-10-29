@@ -4,21 +4,22 @@
   "private": true,
   "homepage": "https://portfolio.winyan.dev/",
   "scripts": {
-    "predev": "node scripts/generate-blog.js",
+    "generate": "node scripts/generate-blog.js && node scripts/fetch-gitlab-projects.js && node scripts/generate-tars-context.js",
+    "predev": "npm run generate",
     "dev": "next dev",
-    "prebuild": "node scripts/generate-blog.js",
-    "build": "next build && next export",
-    "start": "next start",
+    "prebuild": "npm run generate",
+    "build": "next build",
     "lint": "next lint"
   },
   "engines": {
-    "node": ">=18.x"
+    "node": ">=18.18"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",
     "autoprefixer": "^10.4.13",
+    "highlight.js": "^11.12.0",
     "jquery": "^3.6.3",
-    "next": "^13.1.2",
+    "next": "^15.5.28",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,10 +27,11 @@
     "react-ga4": "^2.1.0",
     "react-markdown": "^10.1.0",
     "react-onclickoutside": "^6.12.2",
-    "tailwindcss": "^3.2.4"
+    "rehype-highlight": "^7.0.2",
+    "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "eslint-config-next": "^13.1.2"
+    "eslint-config-next": "^15.5.28"
   }
 }

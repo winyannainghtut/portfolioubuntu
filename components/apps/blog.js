@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga4';
-import ReactMarkdown from 'react-markdown';
+import dynamic from 'next/dynamic';
+import { formatPostDate } from '../../lib/format';
+import { takePendingPost } from '../../lib/deep-link';
+
+// Markdown + syntax highlighting only loads when a post is opened, keeping the desktop's first load small
+const PostContent = dynamic(() => import('../blog/PostContent'), {
+    loading: () => <div className="text-gray-400">Loading post...</div>,
+});
 
 export class Blog extends Component {
     constructor() {
@@ -29,6 +36,11 @@ export class Blog extends Component {
                 loading: false,
                 postsLoaded: true
             });
+
+            // Opened from a /?post=<slug> link
+            const pendingSlug = takePendingPost();
+            const pendingPost = pendingSlug && posts.find((post) => post.slug === pendingSlug);
+            if (pendingPost) this.selectPost(pendingPost);
         } catch (error) {
             // Fall through to the "No Blog Posts Yet" screen
             console.warn('Error fetching blog posts:', error);
@@ -52,15 +64,6 @@ export class Blog extends Component {
         this.setState({ selectedPost: null });
     }
 
-    formatDate = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        });
-    }
 
     renderPostList = () => {
         if (this.state.loading) {
@@ -89,7 +92,7 @@ export class Blog extends Component {
         }
 
         return (
-            <div className="h-full overflow-y-auto p-4 md:p-6 windowMainScreen">
+            <div className="h-full overflow-y-auto p-4 md:p-6 windowMainScreen select-none">
                 {/* Header */}
                 <div className="mb-8 text-center">
                     <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Blog</h1>
@@ -119,7 +122,7 @@ export class Blog extends Component {
                                     <h2 className="text-lg md:text-xl font-semibold text-white group-hover:text-ub-orange transition-colors mb-1">
                                         {post.title}
                                     </h2>
-                                    <p className="text-sm text-gray-400 mb-2">{this.formatDate(post.date)}</p>
+                                    <p className="text-sm text-gray-400 mb-2">{formatPostDate(post.date)} · {post.readingTime} min read</p>
                                     <p className="text-gray-300 text-sm line-clamp-2">{post.excerpt}</p>
                                 </div>
                                 
@@ -163,26 +166,22 @@ export class Blog extends Component {
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                {this.formatDate(post.date)}
+                                {formatPostDate(post.date)}
                             </span>
+                            <span>{post.readingTime} min read</span>
+                            <a
+                                href={`./blog/${post.slug}/`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-ub-orange hover:underline"
+                            >
+                                Permalink ↗
+                            </a>
                         </div>
                     </header>
                     
                     {/* Post Content */}
-                    <article className="prose prose-invert prose-lg max-w-none
-                        prose-headings:text-white prose-headings:font-semibold
-                        prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
-                        prose-p:text-gray-300 prose-p:leading-relaxed
-                        prose-a:text-ub-orange prose-a:no-underline hover:prose-a:underline
-                        prose-strong:text-white
-                        prose-code:text-ub-orange prose-code:bg-white/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-                        prose-code:before:content-none prose-code:after:content-none
-                        prose-pre:bg-ub-cool-grey prose-pre:border prose-pre:border-white/10
-                        prose-ul:text-gray-300 prose-ol:text-gray-300
-                        prose-li:marker:text-ub-orange
-                    ">
-                        <ReactMarkdown>{post.content}</ReactMarkdown>
-                    </article>
+                    <PostContent content={post.content} />
                 </div>
             </div>
         );
@@ -190,7 +189,7 @@ export class Blog extends Component {
 
     render() {
         return (
-            <div className="h-full w-full bg-ub-grey text-white select-none">
+            <div className="h-full w-full bg-ub-grey text-white">
                 {this.state.selectedPost ? this.renderPost() : this.renderPostList()}
             </div>
         );

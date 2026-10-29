@@ -1,0 +1,13 @@
+name = "tars-chat"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+SITE_URL = "https://portfolio.winyan.dev"
+# Comma-separated origins allowed to call the Worker (localhost is for `npm run dev`)
+ALLOWED_ORIGINS = "https://portfolio.winyan.dev,http://localhost:3000"
+OWNER_NAME = "Win Yan Naing Htut"
+MODEL = "claude-opus-5-5"
+
+# Secret (not in this file): npx wrangler secret put ANTHROPIC_API_KEY

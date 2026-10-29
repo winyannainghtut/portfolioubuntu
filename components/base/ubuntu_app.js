@@ -14,9 +14,17 @@ export class UbuntuApp extends Component {
         }
     }
 
+    // Double-click opens with the mouse; Enter opens the focused icon from the keyboard
+    handleKeyDown = (e) => {
+        if (e.key === 'Enter') this.openApp();
+    }
+
     render() {
         return (
             <div
+                role="button"
+                aria-label={`Open ${this.props.name}`}
+                onKeyDown={this.handleKeyDown}
                 className="
                     desktop-icon p-2 m-px z-10 
                     bg-white/0 hover:bg-white/10 

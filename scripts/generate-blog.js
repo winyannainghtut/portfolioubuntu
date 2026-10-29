@@ -1,68 +1,77 @@
+// Generates the blog's static data files before `next dev` / `next build`:
+//   public/blog/posts.json  - read by the desktop Blog app
+//   public/rss.xml          - RSS 2.0 feed
+//   public/sitemap.xml      - sitemap for search engines
 const fs = require('fs');
 const path = require('path');
+const { getAllPosts } = require('../lib/blog');
+const { SITE_URL } = require('../lib/site');
+const { profile } = require('../data/resume');
 
-const postsDirectory = path.join(__dirname, '..', 'public', 'blog', 'posts');
-const outputFile = path.join(__dirname, '..', 'public', 'blog', 'posts.json');
+const publicDir = path.join(__dirname, '..', 'public');
+
+const escapeXml = (value) => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+
+const postUrl = (post) => `${SITE_URL}/blog/${post.slug}/`;
+const isoDate = (date) => (date && !isNaN(new Date(date)) ? new Date(date).toISOString() : null);
+
+function buildRss(posts) {
+    const items = posts.map((post) => `
+    <item>
+      <title>${escapeXml(post.title)}</title>
+      <link>${postUrl(post)}</link>
+      <guid isPermaLink="true">${postUrl(post)}</guid>
+      ${isoDate(post.date) ? `<pubDate>${new Date(post.date).toUTCString()}</pubDate>` : ''}
+      <description>${escapeXml(post.excerpt)}</description>
+    </item>`).join('');
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeXml(`${profile.name} - Blog`)}</title>
+    <link>${SITE_URL}/blog/</link>
+    <description>Thoughts, tutorials, and insights on Cloud, DevOps, and Technology</description>
+    <language>en</language>
+    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />${items}
+  </channel>
+</rss>
+`;
+}
+
+function buildSitemap(posts) {
+    const pages = [
+        { loc: `${SITE_URL}/` },
+        { loc: `${SITE_URL}/about/` },
+        { loc: `${SITE_URL}/blog/`, lastmod: posts.length ? isoDate(posts[0].date) : null },
+        ...posts.map((post) => ({ loc: postUrl(post), lastmod: isoDate(post.date) })),
+    ];
+
+    const urls = pages.map((page) => `
+  <url>
+    <loc>${page.loc}</loc>${page.lastmod ? `
+    <lastmod>${page.lastmod.slice(0, 10)}</lastmod>` : ''}
+  </url>`).join('');
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}
+</urlset>
+`;
+}
 
 try {
-    // Check if directory exists
-    if (!fs.existsSync(postsDirectory)) {
-        console.log('Blog posts directory does not exist. Creating empty posts.json.');
-        fs.writeFileSync(outputFile, '[]');
-        return;
-    }
+    const posts = getAllPosts();
 
-    // Get all markdown files
-    const filenames = fs.readdirSync(postsDirectory).filter(
-        (file) => file.endsWith('.md') && file !== 'README.md'
-    );
+    fs.mkdirSync(path.join(publicDir, 'blog'), { recursive: true });
+    fs.writeFileSync(path.join(publicDir, 'blog', 'posts.json'), JSON.stringify(posts, null, 2));
+    fs.writeFileSync(path.join(publicDir, 'rss.xml'), buildRss(posts));
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), buildSitemap(posts));
 
-    const posts = filenames.map((filename) => {
-        const filePath = path.join(postsDirectory, filename);
-        const fileContents = fs.readFileSync(filePath, 'utf8');
-        
-        // Normalize line endings for cross-platform compatibility
-        const normalizedContent = fileContents.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-        
-        // Extract front matter (if present) and content
-        let frontMatter = {};
-        let content = normalizedContent;
-        
-        // Simple front matter parser
-        const frontMatterMatch = normalizedContent.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-        if (frontMatterMatch) {
-            const frontMatterContent = frontMatterMatch[1];
-            content = frontMatterMatch[2];
-            
-            // Parse front matter properties
-            const titleMatch = frontMatterContent.match(/title:\s*(.+)/);
-            const dateMatch = frontMatterContent.match(/date:\s*(.+)/);
-            const excerptMatch = frontMatterContent.match(/excerpt:\s*(.+)/);
-            
-            if (titleMatch) frontMatter.title = titleMatch[1].trim();
-            if (dateMatch) frontMatter.date = dateMatch[1].trim();
-            if (excerptMatch) frontMatter.excerpt = excerptMatch[1].trim();
-        }
-
-        // Extract slug from filename
-        const slug = filename.replace(/\.md$/, '');
-
-        return {
-            slug,
-            title: frontMatter.title || slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-            date: frontMatter.date || '',
-            excerpt: frontMatter.excerpt || content.substring(0, 150).replace(/[#*`]/g, '') + '...',
-            content,
-        };
-    });
-
-    // Sort posts by date (newest first)
-    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    // Write to JSON file
-    fs.writeFileSync(outputFile, JSON.stringify(posts, null, 2));
-    
-    console.log(`✅ Generated ${posts.length} blog posts to ${outputFile}`);
+    console.log(`✅ Generated ${posts.length} blog posts, rss.xml and sitemap.xml`);
 } catch (error) {
     console.error('Error generating blog posts:', error);
     process.exit(1);
